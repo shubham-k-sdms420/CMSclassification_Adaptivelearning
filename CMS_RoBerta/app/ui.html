@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Complaint Classification and Adaptive Learning — Test UI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem;
+      background: #0f0f12;
+      color: #e4e4e7;
+      min-height: 100vh;
+    }
+    h1 {
+      font-size: 1.35rem;
+      font-weight: 600;
+      margin: 0 0 0.5rem;
+      color: #fafafa;
+    }
+    .subtitle {
+      color: #71717a;
+      font-size: 0.9rem;
+      margin-bottom: 1.5rem;
+    }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      margin-bottom: 1.5rem;
+    }
+    .status.ok { background: #14532d; color: #86efac; }
+    .status.err { background: #450a0a; color: #fca5a5; }
+    .status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+    section {
+      background: #18181b;
+      border: 1px solid #27272a;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+    }
+    section h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem;
+      color: #d4d4d8;
+    }
+    label { display: block; margin-bottom: 0.5rem; font-size: 0.875rem; color: #a1a1aa; }
+    textarea {
+      width: 100%;
+      min-height: 100px;
+      padding: 0.75rem;
+      border: 1px solid #3f3f46;
+      border-radius: 8px;
+      background: #27272a;
+      color: #e4e4e7;
+      font-size: 0.9rem;
+      resize: vertical;
+    }
+    textarea::placeholder { color: #71717a; }
+    .row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      border: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      background: #3b82f6;
+      color: #fff;
+    }
+    button:hover { background: #2563eb; }
+    button:disabled { opacity: 0.6; cursor: not-allowed; }
+    button.secondary { background: #3f3f46; color: #e4e4e7; }
+    button.secondary:hover { background: #52525b; }
+    .checkbox-wrap { display: flex; align-items: center; gap: 0.5rem; }
+    .checkbox-wrap input { accent-color: #3b82f6; }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 8px;
+      background: #27272a;
+      border: 1px solid #3f3f46;
+      font-size: 0.9rem;
+    }
+    .result .label { font-weight: 600; color: #a5b4fc; }
+    .result .meta { color: #71717a; margin-top: 0.35rem; }
+    .result .probs { margin-top: 0.75rem; font-size: 0.85rem; }
+    .result .probs div { margin: 0.2rem 0; }
+    .result .routing { margin-top: 0.5rem; font-size: 0.85rem; }
+    .result .routing.accept { color: #86efac; }
+    .result .routing.human_feedback { color: #fcd34d; }
+    .feedback-box { margin-top: 1rem; padding: 1rem; background: #1c1917; border: 1px solid #44403c; border-radius: 8px; }
+    .feedback-box h3 { font-size: 0.9rem; margin: 0 0 0.5rem; color: #fcd34d; }
+    .feedback-box select { width: 100%; padding: 0.5rem; border-radius: 6px; background: #27272a; color: #e4e4e7; border: 1px solid #3f3f46; margin-bottom: 0.5rem; font-size: 0.9rem; }
+    .feedback-box button { margin-top: 0.25rem; }
+    .feedback-box .done { color: #86efac; font-size: 0.85rem; margin-top: 0.5rem; }
+    .metrics-box { margin-top: 1rem; padding: 1rem; background: #1e1e2e; border: 1px solid #313244; border-radius: 8px; font-size: 0.875rem; }
+    .metrics-box h4 { font-size: 0.8rem; margin: 0 0 0.75rem; color: #89b4fa; text-transform: uppercase; letter-spacing: 0.05em; }
+    .metrics-box .theory { color: #a6e3a1; font-size: 0.8rem; margin-bottom: 0.75rem; }
+    .metrics-box table { width: 100%; border-collapse: collapse; }
+    .metrics-box th, .metrics-box td { text-align: left; padding: 0.35rem 0.5rem; border-bottom: 1px solid #313244; }
+    .metrics-box th { color: #6c7086; font-weight: 500; width: 38%; }
+    .metrics-box .pct { font-family: ui-monospace, monospace; color: #f9e2af; }
+    .metrics-box .agree { color: #a6e3a1; }
+    .metrics-box .disagree { color: #f38ba8; }
+    .error { background: #450a0a; border-color: #7f1d1d; color: #fca5a5; }
+    .labels-list { font-size: 0.85rem; color: #a1a1aa; }
+    .labels-list span { display: inline-block; margin: 0.2rem 0.2rem 0 0; padding: 0.2rem 0.5rem; background: #27272a; border-radius: 4px; }
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; }
+    .tabs button { padding: 0.4rem 0.8rem; font-size: 0.85rem; }
+    .tabs button.active { background: #3b82f6; }
+    .panel { display: none; }
+    .panel.active { display: block; }
+    .batch-hint { font-size: 0.8rem; color: #71717a; margin-top: 0.35rem; }
+    .batch-result table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .batch-result th, .batch-result td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #3f3f46; }
+    .batch-result th { color: #a1a1aa; font-weight: 500; }
+  </style>
+</head>
+<body>
+  <h1>CMS Complaint Classification and Adaptive Learning</h1>
+  <p class="subtitle">Test UI — single and batch classification</p>
+  <div id="apiStatus" class="status">Checking API…</div>
+
+  <section>
+    <div class="tabs">
+      <button type="button" class="tab active" data-tab="single">Single</button>
+      <button type="button" class="tab" data-tab="batch">Batch</button>
+    </div>
+
+    <div id="panelSingle" class="panel active">
+      <h2>Single complaint</h2>
+      <label for="text">Complaint text</label>
+      <textarea id="text" placeholder="e.g. Illegal construction noise after 10 PM near my society."></textarea>
+      <div class="row">
+        <div class="checkbox-wrap">
+          <input type="checkbox" id="probs" />
+          <label for="probs" style="margin:0">Include probabilities</label>
+        </div>
+        <button type="button" id="btnClassify">Classify</button>
+      </div>
+      <div id="singleResult" class="result" style="display:none"></div>
+      <div id="feedbackBox" class="feedback-box" style="display:none">
+        <h3>Low confidence — submit correct category (human feedback)</h3>
+        <p style="font-size:0.85rem; color:#a1a1aa; margin:0 0 0.5rem">The model was unsure. Pick the correct category and submit so the system can learn.</p>
+        <select id="feedbackLabel"></select>
+        <button type="button" id="btnFeedback">Submit feedback</button>
+        <div id="feedbackDone" class="done" style="display:none"></div>
+      </div>
+    </div>
+
+    <div id="panelBatch" class="panel">
+      <h2>Batch classification</h2>
+      <label for="batchText">One complaint per line</label>
+      <textarea id="batchText" placeholder="Complaint one...&#10;Complaint two...&#10;Complaint three..."></textarea>
+      <p class="batch-hint">Enter multiple complaints, one per line.</p>
+      <div class="row">
+        <div class="checkbox-wrap">
+          <input type="checkbox" id="batchProbs" />
+          <label for="batchProbs" style="margin:0">Include probabilities</label>
+        </div>
+        <button type="button" id="btnBatch" class="secondary">Classify batch</button>
+      </div>
+      <div id="batchResult" class="result" style="display:none"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Available labels</h2>
+    <div id="labelsList" class="labels-list">Loading…</div>
+  </section>
+
+  <script>
+    const base = ''; // same origin: works on localhost and on server
+
+    async function api(path, options = {}) {
+      const res = await fetch((base + path).replace(/\/\/+/, '/'), {
+        headers: { 'Content-Type': 'application/json', ...options.headers },
+        ...options
+      });
+      const text = await res.text();
+      if (!res.ok) throw new Error(text || res.statusText);
+      return text ? JSON.parse(text) : null;
+    }
+
+    async function checkHealth() {
+      const el = document.getElementById('apiStatus');
+      try {
+        const r = await api('/health');
+        el.className = 'status ' + (r.model_loaded ? 'ok' : 'err');
+        el.textContent = r.model_loaded ? 'API ready • model loaded' : 'API ok • model not loaded';
+      } catch (e) {
+        el.className = 'status err';
+        el.textContent = 'API error: ' + (e.message || 'unreachable');
+      }
+    }
+
+    async function loadLabels() {
+      const el = document.getElementById('labelsList');
+      try {
+        const r = await api('/labels');
+        window.allLabels = r.labels || [];
+        el.innerHTML = window.allLabels.map(l => '<span>' + escapeHtml(l) + '</span>').join('');
+      } catch (e) {
+        el.textContent = 'Failed to load: ' + (e.message || '');
+      }
+    }
+
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s;
+      return div.innerHTML;
+    }
+
+    document.querySelectorAll('.tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('panel' + (btn.dataset.tab === 'single' ? 'Single' : 'Batch')).classList.add('active');
+      });
+    });
+
+    document.getElementById('btnClassify').addEventListener('click', async () => {
+      const text = document.getElementById('text').value.trim();
+      const resultEl = document.getElementById('singleResult');
+      resultEl.style.display = 'block';
+      if (!text) {
+        resultEl.className = 'result error';
+        resultEl.textContent = 'Please enter some complaint text.';
+        return;
+      }
+      resultEl.className = 'result';
+      resultEl.textContent = 'Classifying…';
+      try {
+        const r = await api('/classify', {
+          method: 'POST',
+          body: JSON.stringify({
+            text: text,
+            return_probabilities: document.getElementById('probs').checked
+          })
+        });
+        let html = '<span class="label">' + escapeHtml(r.label) + '</span> <span class="meta">(id: ' + r.label_id + ')</span>';
+        if (r.confidence != null) {
+          html += '<div class="meta">Final confidence: ' + (r.confidence * 100).toFixed(1) + '%</div>';
+        }
+        if (r.routing) {
+          const cls = r.routing === 'accept' ? 'accept' : 'human_feedback';
+          const msg = r.routing === 'accept' ? 'Accept (use this prediction)' : 'Human feedback (needs review)';
+          html += '<div class="routing ' + cls + '">Routing: ' + msg + '</div>';
+        }
+        if (r.label) {
+          html += '<div class="metrics-box">';
+          html += '<h4>How it worked</h4>';
+          html += '<p class="theory">Both models see the same text; their predictions are combined into one final category and confidence. Above 80% → Accept; 80% or below → Human feedback.</p>';
+          html += '<table><tbody>';
+          html += '<tr><th>RoBERTa (transformer)</th><td>' + escapeHtml(r.transformer_label != null ? r.transformer_label : '—') + '</td><td class="pct">' + (r.transformer_confidence != null ? (r.transformer_confidence * 100).toFixed(1) + '%' : '—') + '</td></tr>';
+          html += '<tr><th>SGD classifier (adaptive)</th><td>' + escapeHtml(r.adaptive_label != null ? r.adaptive_label : '—') + '</td><td class="pct">' + (r.adaptive_confidence != null ? (r.adaptive_confidence * 100).toFixed(1) + '%' : '—') + '</td></tr>';
+          html += '<tr><th>Agreement</th><td colspan="2">' + (r.agreement === true ? '<span class="agree">Yes</span>' : r.agreement === false ? '<span class="disagree">No</span>' : '—') + '</td></tr>';
+          if (r.agreement === true && r.transformer_label != null) {
+            const transConf = r.transformer_confidence != null ? (r.transformer_confidence * 100).toFixed(1) + '%' : '—';
+            const adaptConf = r.adaptive_confidence != null ? (r.adaptive_confidence * 100).toFixed(1) + '%' : '—';
+            html += '<tr><th>Agreed on category</th><td><span class="agree">' + escapeHtml(r.transformer_label) + '</span></td><td class="pct">RoBERTa: ' + transConf + ' | SGD: ' + adaptConf + '</td></tr>';
+          } else if (r.agreement === false) {
+            const transConf = r.transformer_confidence != null ? (r.transformer_confidence * 100).toFixed(1) + '%' : '—';
+            const adaptConf = r.adaptive_confidence != null ? (r.adaptive_confidence * 100).toFixed(1) + '%' : '—';
+            html += '<tr><th>Disagreement</th><td>RoBERTa: <span class="disagree">' + escapeHtml(r.transformer_label || '—') + '</span> (' + transConf + ')<br>SGD: <span class="disagree">' + escapeHtml(r.adaptive_label || '—') + '</span> (' + adaptConf + ')</td><td class="pct">—</td></tr>';
+          }
+          html += '<tr><th>Final confidence</th><td colspan="2" class="pct">' + (r.confidence != null ? (r.confidence * 100).toFixed(1) + '%' : '—') + '</td></tr>';
+          html += '<tr><th>Voting outcome</th><td colspan="2">' + (r.routing === 'accept' ? '<span class="agree">Accept (good prediction)</span>' : r.routing === 'human_feedback' ? '<span class="disagree">Human feedback (low prediction)</span>' : '—') + '</td></tr>';
+          html += '</tbody></table>';
+          // Add calculation breakdown
+          if (r.confidence != null && r.transformer_confidence != null && r.adaptive_confidence != null) {
+            const transConf = r.transformer_confidence;
+            const adaptConf = r.adaptive_confidence;
+            const finalConf = r.confidence;
+            const isAgreement = r.agreement === true;
+            html += '<div style="margin-top: 0.75rem; padding: 0.75rem; background: #0f0f12; border-radius: 6px; border: 1px solid #27272a;">';
+            html += '<div style="font-size: 0.8rem; color: #89b4fa; margin-bottom: 0.5rem; font-weight: 500;">Final Confidence Calculation</div>';
+            if (isAgreement) {
+              const maxConf = Math.max(transConf, adaptConf);
+              const boosted = Math.min(1.0, maxConf * 1.05);
+              html += '<div style="font-size: 0.8rem; color: #a1a1aa; line-height: 1.6;">';
+              html += '<div style="margin-bottom: 0.35rem;"><strong style="color: #a6e3a1;">Agreement case:</strong> Models agree on category</div>';
+              html += '<div style="font-family: ui-monospace, monospace; color: #f9e2af; margin: 0.35rem 0;">';
+              html += 'max(RoBERTa, SGD) × 1.05 = max(' + (transConf * 100).toFixed(1) + '%, ' + (adaptConf * 100).toFixed(1) + '%) × 1.05';
+              html += '</div>';
+              html += '<div style="font-family: ui-monospace, monospace; color: #f9e2af; margin: 0.35rem 0;">';
+              html += '= ' + (maxConf * 100).toFixed(1) + '% × 1.05 = <strong style="color: #f9e2af;">' + (finalConf * 100).toFixed(1) + '%</strong>';
+              html += '</div>';
+              html += '</div>';
+            } else {
+              const weightedTrans = 0.7 * transConf;
+              const weightedAdapt = 0.3 * adaptConf;
+              html += '<div style="font-size: 0.8rem; color: #a1a1aa; line-height: 1.6;">';
+              html += '<div style="margin-bottom: 0.35rem;"><strong style="color: #f38ba8;">Disagreement case:</strong> Models predict different categories</div>';
+              html += '<div style="font-family: ui-monospace, monospace; color: #f9e2af; margin: 0.35rem 0;">';
+              html += '(0.7 × RoBERTa) + (0.3 × SGD) = (0.7 × ' + (transConf * 100).toFixed(1) + '%) + (0.3 × ' + (adaptConf * 100).toFixed(1) + '%)';
+              html += '</div>';
+              html += '<div style="font-family: ui-monospace, monospace; color: #f9e2af; margin: 0.35rem 0;">';
+              html += '= ' + (weightedTrans * 100).toFixed(1) + '% + ' + (weightedAdapt * 100).toFixed(1) + '% = <strong style="color: #f9e2af;">' + (finalConf * 100).toFixed(1) + '%</strong>';
+              html += '</div>';
+              html += '</div>';
+            }
+            html += '<div style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #27272a; font-size: 0.75rem; color: #71717a;">';
+            html += 'Threshold: ' + (finalConf * 100).toFixed(1) + '% ' + (finalConf > 0.80 ? '<span style="color: #86efac;">> 80%</span> → <strong style="color: #86efac;">Accept</strong>' : '<span style="color: #fcd34d;">≤ 80%</span> → <strong style="color: #fcd34d;">Human feedback</strong>');
+            html += '</div>';
+            html += '</div>';
+          }
+          html += '</div>';
+        }
+        if (r.probabilities && Object.keys(r.probabilities).length) {
+          html += '<div class="probs">';
+          for (const [l, p] of Object.entries(r.probabilities)) {
+            html += '<div>' + escapeHtml(l) + ': ' + (typeof p === 'number' ? (p * 100).toFixed(2) : p) + '%</div>';
+          }
+          html += '</div>';
+        }
+        resultEl.innerHTML = html;
+        resultEl.dataset.lastText = text;
+        resultEl.dataset.lastRouting = r.routing || '';
+        const fb = document.getElementById('feedbackBox');
+        const fbDone = document.getElementById('feedbackDone');
+        fbDone.style.display = 'none';
+        if (r.routing === 'human_feedback') {
+          fb.style.display = 'block';
+          const sel = document.getElementById('feedbackLabel');
+          if (sel.length <= 1 && window.allLabels && window.allLabels.length) {
+            sel.innerHTML = '<option value="">Select correct category…</option>' + window.allLabels.map((l, i) => '<option value="' + i + '">' + escapeHtml(l) + '</option>').join('');
+          }
+          const idx = window.allLabels && r.label ? window.allLabels.indexOf(r.label) : -1;
+          sel.value = idx >= 0 ? String(idx) : '';
+        } else {
+          fb.style.display = 'none';
+        }
+      } catch (e) {
+        resultEl.className = 'result error';
+        resultEl.textContent = 'Error: ' + (e.message || '');
+      }
+    });
+
+    document.getElementById('btnBatch').addEventListener('click', async () => {
+      const raw = document.getElementById('batchText').value.trim();
+      const texts = raw ? raw.split(/\n/).map(s => s.trim()).filter(Boolean) : [];
+      const resultEl = document.getElementById('batchResult');
+      resultEl.style.display = 'block';
+      if (!texts.length) {
+        resultEl.className = 'result error';
+        resultEl.textContent = 'Enter at least one complaint (one per line).';
+        return;
+      }
+      resultEl.className = 'result';
+      resultEl.textContent = 'Classifying…';
+      try {
+        const r = await api('/classify/batch', {
+          method: 'POST',
+          body: JSON.stringify({
+            texts: texts,
+            return_probabilities: document.getElementById('batchProbs').checked
+          })
+        });
+        let html = '<div class="batch-result"><table><thead><tr><th>#</th><th>Text</th><th>Label</th><th>ID</th><th>Confidence</th><th>Routing</th></tr></thead><tbody>';
+        r.predictions.forEach((p, i) => {
+          const short = escapeHtml(texts[i].length > 40 ? texts[i].slice(0, 40) + '…' : texts[i]);
+          const conf = p.confidence != null ? (p.confidence * 100).toFixed(1) + '%' : '—';
+          const route = p.routing || '—';
+          html += '<tr><td>' + (i + 1) + '</td><td>' + short + '</td><td>' + escapeHtml(p.label) + '</td><td>' + p.label_id + '</td><td>' + conf + '</td><td>' + escapeHtml(route) + '</td></tr>';
+        });
+        html += '</tbody></table></div>';
+        resultEl.innerHTML = html;
+      } catch (e) {
+        resultEl.className = 'result error';
+        resultEl.textContent = 'Error: ' + (e.message || '');
+      }
+    });
+
+    document.getElementById('btnFeedback').addEventListener('click', async () => {
+      const resultEl = document.getElementById('singleResult');
+      const text = resultEl.dataset.lastText;
+      const selVal = document.getElementById('feedbackLabel').value;
+      const correctCategory = selVal === '' || !window.allLabels ? '' : window.allLabels[parseInt(selVal, 10)];
+      const fbDone = document.getElementById('feedbackDone');
+      if (!text) return;
+      if (!correctCategory) {
+        fbDone.style.display = 'block';
+        fbDone.textContent = 'Please select a category.';
+        fbDone.style.color = '#fca5a5';
+        return;
+      }
+      fbDone.textContent = 'Sending…';
+      fbDone.style.color = '#a1a1aa';
+      fbDone.style.display = 'block';
+      try {
+        await api('/feedback', {
+          method: 'POST',
+          body: JSON.stringify({ complaint_text: text, correct_category: correctCategory })
+        });
+        fbDone.textContent = 'Feedback submitted. The system has learned from this correction.';
+        fbDone.style.color = '#86efac';
+      } catch (e) {
+        fbDone.textContent = 'Error: ' + (e.message || '');
+        fbDone.style.color = '#fca5a5';
+      }
+    });
+
+    checkHealth();
+    loadLabels();
+  </script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+High confidence Complaints :
+1. Street light not working near my house for the past one week.
+2.Garbage is not being collected from our society. Dustbin is overflowing.
+3.Road has big potholes near the main market. Vehicles are getting damaged.
+4.Drainage water is overflowing on the street. Bad smell and mosquitoes.
+5.Illegal construction going on without permission. Please take action.
+6.Stray dogs in our area. Children are scared to go out.
+7.No water supply in our area since three days.
+8.Traffic signal not working at the junction. Causing accidents.
+9.Unauthorized hoarding put on the footpath. Blocking the way.
+10.Birth certificate application pending for two months. Need urgently.
+
+Low Confidence Complaints:
+1.Problem at ward 12 near the temple. Please look into it.
+2.Complaint about the office. They are not listening.
+3.Problem with papers. Submitted last month. No update.
+4.Noise from the building work. Day and night.
+5.Certificate needed. Applied long back. Where is it?
+6.Illegal activity in the area. Need immediate action.
+7.School side problem. Children are suffering.
+8.my mobile network is too low data is not working do something please
+

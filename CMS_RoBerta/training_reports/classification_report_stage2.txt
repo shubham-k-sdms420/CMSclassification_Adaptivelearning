@@ -1,0 +1,84 @@
+                                                                                                     precision    recall  f1-score   support
+
+                                                                                    Abhyagat Kaksha     0.5000    0.5000    0.5000        14
+                                                                                       Aids Control     0.0000    0.0000    0.0000         0
+                                                                                            AutoDCR     0.0000    0.0000    0.0000         0
+                                                                                       BSUP project     0.0000    0.0000    0.0000         0
+                                                                                             Bhavan     0.5190    0.5814    0.5484       258
+                                                                                       Bicycle Plan     0.5000    1.0000    0.6667         1
+                                                                                    Birth And Death     0.8737    0.9222    0.8973        90
+                                Bogus doctor / pregnancy diagnosis / unauthorized sonography center     0.6667    0.6667    0.6667         3
+                                                          Bridge / Overbridge / Subway / pedestrian     0.4393    0.6972    0.5390       109
+                                                                                Building Permission     0.7487    0.8411    0.7922      1328
+                                                                                   Chawl Complaints     0.0000    0.0000    0.0000         1
+                                                                              City Development Plan     0.2268    0.2444    0.2353       180
+                                                                                City Family Welfare     0.0000    0.0000    0.0000         1
+                                                                               Communicable Disease     0.0588    0.0385    0.0465        26
+                                                                          Contributed Health Scheme     0.0000    0.0000    0.0000         0
+                                                                   Crematorium electrical work(H.O)     0.4000    0.4000    0.4000         5
+                                                                                Cultural Department     0.7500    0.4737    0.5806        19
+                                                                                           Drainage     0.8711    0.8767    0.8739      5410
+                                                                                    Electrical(H.O)     0.1053    0.0851    0.0941        47
+Employee Transfer / Promotion / Service Record/Others (GAD/Est.)/Regarding Officer/Women Harassment     0.5000    0.5000    0.5000         2
+                                                           Encroachments on public premises / roads     0.8472    0.8433    0.8452      2380
+                                                                                  Environment (H.O)     0.1915    0.2432    0.2143        37
+                                               Fogging / Mosquito nuisance / Dengue malaria disease     0.8581    0.9192    0.8876      1250
+                                                                            Garbage Depot Complaint     0.2449    0.3582    0.2909        67
+                                                                      Garden Civil maintenance work     0.6207    0.6000    0.6102        90
+                                                                      Garden Cleaning & maintenance     0.5695    0.6499    0.6071       397
+                                                                   Garden Electric maintenance work     0.6038    0.6667    0.6337        48
+                                                                             General Administration     0.3846    0.4545    0.4167        11
+                                                                                 General Complaints     0.0000    0.0000    0.0000         0
+                                                                          Heritage Cell (Bhavan HO)     0.1250    0.1667    0.1429         6
+                                                                                       Immunization     0.3333    0.5000    0.4000         2
+                                                                             Information Technology     0.8442    0.8025    0.8228        81
+                                                                    Information Technology-Employee     0.0000    0.0000    0.0000         3
+                                                                     JICA Project related Complaint     0.0000    0.0000    0.0000         0
+                                                                                   Land Acquisition     0.0000    0.0000    0.0000         0
+                                                                               Lashkar Water Supply     0.0000    0.0000    0.0000         7
+                                                                                  License (Parwana)     0.4571    0.5275    0.4898        91
+                                                                 Lifting of bird flu deceased birds     0.7500    1.0000    0.8571         6
+                                                                                             Mandai     0.2857    0.3636    0.3200        11
+                                                                              Marriage Registration     0.5385    0.8750    0.6667         8
+                                                                                  Medicine Supplies     0.3333    0.5000    0.4000         2
+                                                                                 National Programms     0.0000    0.0000    0.0000         2
+                                                                            PMC Hospitals treatment     0.8209    0.8333    0.8271        66
+                                                                                     PMC Properties     0.4909    0.4576    0.4737        59
+                                                                            PMC Security Complaints     0.6667    0.5000    0.5714        12
+                                                                                 Pension Complaints     0.0000    0.0000    0.0000         0
+                                                                  Pradhan Mantri Awas Yojana (PMAY)     0.6667    1.0000    0.8000         2
+                                                                                  Primary Education     0.5938    0.6333    0.6129        30
+                                                                  Property Tax Assessment / Payment     0.7900    0.8315    0.8102       552
+                                                                      Property Tax-COMPUTER SECTION     0.4466    0.4000    0.4220       115
+                                                                          Property Tax-MOBILE TOWER     0.4444    0.6667    0.5333         6
+                                              Property Tax-SOLAR VERMI & RAINWATER HARVESTING (SVR)     0.7143    0.6818    0.6977        22
+                                                                   Property Tax-TAT(Title Transfer)     0.7381    0.7381    0.7381        84
+                                                                               Providant Fund / CPS     0.0000    0.0000    0.0000         0
+                                                                              Public Health Related     0.4398    0.5381    0.4840       604
+                                                                           Pune Smart City (PSCDCL)     0.5385    0.5833    0.5600        12
+                                                                                         RCH / NUHM     0.0000    0.0000    0.0000         1
+                                                                              RTI Related Complaint     0.0000    0.0000    0.0000         3
+                                                                    River Front development Project     0.2000    0.2000    0.2000         5
+                                                 Road Sweeping / Toilet Cleaning / Garbage disposal     0.9065    0.8594    0.8823      7881
+                         Road, pavement, divider, pits, repair / new speed breaker / zebra crossing     0.9043    0.8544    0.8786      8194
+                                                                  Secondary and Technical Education     0.0000    0.0000    0.0000         1
+                                                                                               Slum     0.0000    0.0000    0.0000        13
+                                                                         Social Development Schemes     0.7500    0.3750    0.5000         8
+                                                                                             Sports     0.5238    0.3438    0.4151        32
+                                                                                      Stray Animals     0.7090    0.7308    0.7197       260
+                                                                                         Stray Dogs     0.9496    0.9671    0.9583      1792
+                                                                                      Street Lights     0.9675    0.9675    0.9675      4278
+                                                                                                TDR     1.0000    1.0000    1.0000         1
+                                                                                     Traffic Signal     0.8649    0.9648    0.9121       199
+                                                                                   Traffic-Planning     0.5039    0.6737    0.5766        95
+                                                                                     Tree Authority     0.8766    0.9298    0.9025      1796
+                              Unauthorized banners / advertisements / Permit / license in Pune City     0.1111    0.0645    0.0816        31
+ Unauthorized hoardigs banners / advertisements on roads / footpath / buildings / directions panels     0.8805    0.8852    0.8828       932
+                                                           Unauthorized slaughterhouse / crude meat     0.5000    0.5556    0.5263         9
+                                                                                  Urban Poor Scheme     0.0000    0.0000    0.0000         3
+                                                                                 Vehicle department     0.3333    0.2500    0.2857        12
+                                                                                       Water Supply     0.9527    0.9601    0.9564      4661
+
+                                                                                           accuracy                         0.8689     43764
+                                                                                          macro avg     0.4414    0.4711    0.4503     43764
+                                                                                       weighted avg     0.8732    0.8689    0.8703     43764
