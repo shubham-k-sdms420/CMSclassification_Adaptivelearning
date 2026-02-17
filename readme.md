@@ -1,29 +1,72 @@
 # Adaptive Learning Complaint Classification System
 
-A hybrid ensemble system for classifying municipal complaints (PMC - Pune Municipal Corporation). The system classifies bilingual (English/Marathi) complaints into 78 categories and **continuously learns from human feedback without retraining the transformer model**.
+**Automatically sort citizen complaints into the right department—in English or Marathi—and improve over time when staff correct mistakes.**
 
-**Current system:** **CMS_RoBerta API** (port 5015) — XLM-RoBERTa + hybrid ensemble (SGDClassifier). Two-case routing: **Accept** (confidence >80%) or **Human feedback** (≤80%); submit corrections via `POST /feedback`. See `CMS_RoBerta/README.md`.
+This project is an AI-powered system for **Pune Municipal Corporation (PMC)**. When a citizen submits a complaint (e.g. *"Street light not working near my house"*), the system suggests which of **78 complaint categories** it belongs to (e.g. Street Lights, Garbage, Drainage). If the system is confident, it uses that suggestion automatically; if not, a staff member chooses the correct category and the system **learns from that choice** so similar complaints are handled better next time. No need to retrain the main AI model—learning happens from everyday corrections.
+
+---
+
+## What’s in this README
+
+| Section | Best for |
+|--------|----------|
+| [Overview](#overview) | Everyone — what the project does and why it matters |
+| [Key features](#key-features) | Everyone — main capabilities at a glance |
+| [How it works](#how-it-works) | Technical readers — flow and components |
+| [Quick start](#quick-start) | Developers — run the API and try it |
+| [API reference](#api-reference-cms_roberta--port-5015) | Integrators — endpoints and examples |
+| [Troubleshooting](#troubleshooting) | Developers — common issues and fixes |
+
+---
+
+## Overview
+
+- **What it does:** Reads complaint text (English or Marathi), suggests one of 78 PMC categories, and either **accepts** that suggestion (when confident) or asks for **human feedback** (when unsure) which is a step of Adaptive learning .
+- **Why it matters:** Speeds up complaint routing, keeps categories consistent, and reduces manual work while still letting staff correct and teach the system.
+- **How it learns:** When a human picks the correct category for an uncertain complaint, that correction is used to update a small “adaptive” part of the system. The main AI model is not retrained.
+
+The live system is the **CMS_RoBerta API** (runs on port **5015**). It combines a fixed multilingual AI model with a lightweight classifier that learns from feedback. For setup and deployment details, see **`CMS_RoBerta/README.md`**.
+
+---
+
+## Key features
+
+- **Bilingual:** Works with complaints in **English** and **Marathi**.
+- **78 categories:** Matches PMC’s complaint categories (Street Lights, Garbage, Drainage, Roads, etc.).
+- **Confidence-based routing:** High confidence → use the suggestion; low confidence → send to a human, then learn from the correction.
+- **Adaptive learning:** Improves from human corrections without full model retraining.
+- **REST API:** Integrate with your CMS or tools via `/classify`, `/classify/batch`, and `/feedback`.
+- **Web UI:** Simple testing interface at `http://localhost:5015/ui` for trying classifications and submitting feedback.
+
+**Who is this for?** Municipal staff and product owners can use the Overview and Key features to understand what the system does. Developers and integrators can use Quick Start and API Reference to run and connect to the service.
 
 ---
 
 ## Table of Contents
 
 1. [How It Works](#how-it-works)
-2. [Architecture](#architecture)
-3. [Project Structure](#project-structure)
-4. [Quick Start](#quick-start)
-5. [API Reference](#api-reference)
-6. [Adaptive Learning Flow](#adaptive-learning-flow)
-7. [Safety / Routing](#safety--routing)
-8. [Configuration and Tuning](#configuration-and-tuning)
-9. [Troubleshooting](#troubleshooting)
-10. [Legacy Content (Reference Only)](#legacy-content-reference-only)
+2. [Terms explained](#terms-explained)
+3. [Architecture](#architecture)
+4. [Project Structure](#project-structure)
+5. [Prerequisites](#prerequisites)
+6. [Quick Start](#quick-start)
+7. [API Reference](#api-reference-cms_roberta--port-5015)
+8. [Adaptive Learning Flow](#adaptive-learning-flow)
+9. [Safety / Routing](#safety--routing)
+10. [Configuration and Tuning](#configuration-and-tuning)
+11. [Documentation](#documentation)
+12. [Troubleshooting](#troubleshooting)
+13. [License & contributing](#license--contributing)
 
 ---
 
 ## How It Works
 
-### The Core Idea
+### In simple terms
+
+A complaint is sent to **two AI components** at once. Both suggest a category and how sure they are. The system **combines** their answers into one suggestion and one **confidence** (e.g. 90%). If that confidence is **above 80%**, the system **accepts** the suggestion. If it’s **80% or below**, the system asks a **human** to choose the correct category and then **learns** from that choice for future similar complaints.
+
+### The Core Idea (technical)
 
 The **CMS_RoBerta** system uses a **hybrid ensemble** of two models that work together:
 
@@ -87,6 +130,19 @@ For detailed scenarios and examples, see **`docs/working-of-the-system.md`**.
 
 ---
 
+## Terms explained
+
+| Term | Meaning |
+|------|--------|
+| **Category** | One of the 78 complaint types (e.g. Street Lights, Garbage, Drainage). |
+| **Confidence** | How sure the system is (0–100%). Higher = more likely the suggestion is correct. |
+| **Accept** | The system uses its suggestion automatically (no human review). Happens when confidence > 80%. |
+| **Human feedback** | The system is unsure; a person picks the correct category. Happens when confidence ≤ 80%. |
+| **Feedback (API)** | Sending the correct category for a complaint so the system can learn (e.g. via `POST /feedback`). |
+| **Adaptive learning** | The system gets better over time by learning from human corrections, without retraining the main AI model. |
+
+---
+
 ## Architecture
 
 ```
@@ -123,33 +179,47 @@ For detailed scenarios and examples, see **`docs/working-of-the-system.md`**.
 │   │   ├── ensemble.py           # Hybrid ensemble (transformer + adaptive classifier)
 │   │   ├── adaptive_classifier.py # SGDClassifier + TF-IDF (online learning)
 │   │   └── __init__.py
-│   ├── model/                    # XLM-RoBERTa weights + label2id.json
+│   ├── model/                    # config, tokenizer, label2id; add model.safetensors (see CMS_RoBerta/README.md)
 │   │   └── adaptive_classifier.pkl  # optional; created when /feedback is used
 │   └── README.md                 # CMS_RoBerta setup and API
 │
 └── docs/                         # Documentation
-    └── hybrid_ensemble_integration.md  # Ensemble + two-case routing design
+    ├── working-of-the-system.md  # How the system works (plain language)
+    ├── hybrid_ensemble_integration.md
+    └── API_DOCUMENTATION.md
 ```
+
+---
+
+## Prerequisites
+
+- **Python 3.8 or newer** (to run the API).
+- **Model weights** in `CMS_RoBerta/model/`: the repo does not include the large AI weight file (`model.safetensors`). You must add it before running (see **`CMS_RoBerta/README.md`** for where to get it and how to set up).
+- For **Docker** deployment: Docker installed and the model files available (e.g. mounted or copied into the image).
 
 ---
 
 ## Quick Start
 
-### 1. Install Dependencies
+### 1. Install dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Start the CMS_RoBerta API
+### 2. Add model weights (if not already done)
 
-No index build or evaluate scripts are required. From project root:
+Place the model weight file (`model.safetensors` or `pytorch_model.bin`) in `CMS_RoBerta/model/`. See **`CMS_RoBerta/README.md`** for details.
+
+### 3. Start the CMS_RoBerta API
+
+From the project root (no separate “build index” or evaluate step needed):
 
 ```bash
 python3 -m uvicorn CMS_RoBerta.app.main:app --host 0.0.0.0 --port 5015
 ```
 
-### 3. Classify a Complaint (port 5015)
+### 4. Classify a complaint (port 5015)
 
 ```bash
 curl -X POST http://localhost:5015/classify \
@@ -157,7 +227,7 @@ curl -X POST http://localhost:5015/classify \
   -d '{"text": "Street light not working near my house"}'
 ```
 
-### 4. Submit Feedback (when routing is human_feedback)
+### 5. Submit feedback (when routing is human_feedback)
 
 ```bash
 curl -X POST http://localhost:5015/feedback \
@@ -165,9 +235,9 @@ curl -X POST http://localhost:5015/feedback \
   -d '{"complaint_text": "Street light not working", "correct_category": "Street Lights"}'
 ```
 
-### 5. Access the Web UI
+### 6. Use the web UI
 
-Open your browser to: `http://localhost:5015/ui`
+Open a browser and go to: **http://localhost:5015/ui** to try single/batch classification and submit feedback.
 
 ---
 
@@ -252,7 +322,7 @@ The current system has **two outcomes only**: **Accept** (confidence > 80%) or *
 - **Accept**: The system is confident enough to use the prediction automatically. No human review needed.
 - **Human feedback**: The system is unsure (low confidence or models disagree). A human provides the correct category, and the adaptive classifier learns from it.
 
-There is no multi-layer safety table or drift monitoring; low-confidence predictions are sent to humans and learning happens only when feedback is submitted via POST /feedback.
+Low-confidence predictions are always sent to humans; the system learns only when someone submits the correct category via the feedback API.
 
 ---
 
@@ -267,10 +337,21 @@ CMS_RoBerta loads the transformer and label set from `CMS_RoBerta/model/`.
 
 ---
 
+## Documentation
+
+| Document | Description |
+|----------|-------------|
+| **`CMS_RoBerta/README.md`** | Setup, deployment (Docker/local), and API overview for the classification service. |
+| **`docs/working-of-the-system.md`** | How the system works in plain language: Accept vs human feedback, learning from corrections, example scenarios. |
+| **`docs/API_DOCUMENTATION.md`** | Detailed API documentation. |
+| **`docs/hybrid_ensemble_integration.md`** | Design of the ensemble and two-case routing. |
+
+---
+
 ## Troubleshooting
 
 ### "Model not loaded" error
-- Ensure `CMS_RoBerta/model/` contains the transformer model files (config.json, pytorch_model.bin, tokenizer files, label2id.json).
+- Ensure `CMS_RoBerta/model/` contains the transformer model files: `config.json`, tokenizer files (`tokenizer_config.json`, `tokenizer.json`), `label2id.json`, and model weights (`model.safetensors` or `pytorch_model.bin`). Weights are not in the repo; add them to `model/` before running (see `CMS_RoBerta/README.md`).
 - Check that the model directory path is correct (default: `CMS_RoBerta/model/`).
 
 ### "UI file not found" error
@@ -292,86 +373,8 @@ CMS_RoBerta loads the transformer and label set from `CMS_RoBerta/model/`.
 
 ---
 
-## Legacy Content (Reference Only)
+## License & contributing
 
-The sections below describe the **removed KNN/FAISS pipeline** and are kept for reference only. The current system is **CMS_RoBerta** only.
+- **License:** See the LICENSE file in the repository (if present). Otherwise, use and distribution are subject to your organization’s policy.
+- **Contributing:** For changes or extensions, follow your team’s process (e.g. internal repo, pull requests, or contact the maintainers).
 
-### Legacy: KNN/FAISS Pipeline (Removed)
-
-The previous system used embedding-based similarity search with FAISS. That pipeline and its `modules/` package have been removed. Only CMS_RoBerta is in use.
-
-### Legacy: Configuration Reference
-
-The following `.env` configuration tables applied only to the removed KNN pipeline. **CMS_RoBerta does not use them**.
-
-<details>
-<summary>Click to expand legacy configuration reference</summary>
-
-#### Embedding Model
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `EMBEDDING_MODEL_NAME` | `paraphrase-multilingual-MiniLM-L12-v2` | Sentence Transformer model name |
-| `EMBEDDING_DIMENSION` | `384` | Vector dimension (auto-detected) |
-| `EMBEDDING_BATCH_SIZE` | `256` | Texts per batch during encoding |
-| `DEVICE` | `cpu` | `cpu` or `cuda` for GPU |
-
-#### Data Paths
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `TRAIN_DATA_PATH` | `./data/train.jsonl` | Training data JSONL file |
-| `TEST_DATA_PATH` | `./data/test.jsonl` | Test data JSONL file |
-| `VAL_DATA_PATH` | `./data/val.jsonl` | Validation data JSONL file |
-| `DATA_INPUT_FIELD` | `input` | JSONL field name for complaint text |
-| `DATA_OUTPUT_FIELD` | `output` | JSONL field name for category label |
-
-#### Vector Store (FAISS)
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `FAISS_INDEX_TYPE` | `Flat` | `Flat` (exact) or `IVF` (approximate, faster) |
-| `FAISS_IVF_NLIST` | `100` | Number of IVF clusters (only if IVF) |
-| `DISTANCE_METRIC` | `cosine` | `cosine` or `euclidean` |
-
-#### Classifier
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `K_NEIGHBORS` | `15` | Number of nearest neighbors to consider |
-| `VOTING_STRATEGY` | `weighted` | `weighted` (closer=more weight) or `uniform` |
-| `MIN_CATEGORY_VOTES` | `3` | Min votes from a category to trust it |
-
-#### Safety Thresholds
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `CONFIDENCE_THRESHOLD_HIGH` | `0.85` | Above this → eligible for auto-learn |
-| `CONFIDENCE_THRESHOLD_MEDIUM` | `0.65` | Above this → classify (don't learn) |
-| `SIMILARITY_THRESHOLD` | `0.60` | Min similarity to known category examples |
-| `MAX_AUTO_LEARN_PER_DAY` | `20` | Rate limit: max auto-learned per day |
-
-#### Ensemble Model
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ENABLE_ENSEMBLE` | `true` | Enable/disable the backup SGD model |
-| `ENSEMBLE_AGREEMENT_REQUIRED` | `true` | Both models must agree for auto-learn |
-
-#### Drift Monitoring
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `ENABLE_DRIFT_MONITORING` | `true` | Enable/disable drift checks |
-| `DRIFT_ACCURACY_THRESHOLD` | `0.75` | Below this → rollback triggered |
-| `DRIFT_WINDOW_SIZE` | `500` | Samples to evaluate per drift check |
-
-#### API Server
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `API_HOST` | `0.0.0.0` | Server bind host |
-| `API_PORT` | `5000` | Server port |
-| `API_DEBUG` | `false` | Flask debug mode |
-
-</details>
