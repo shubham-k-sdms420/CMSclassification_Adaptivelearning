@@ -75,14 +75,31 @@ def load_model():
     print(f"Model loaded from {model_path}")
 
     # Hybrid ensemble: transformer + adaptive classifier (loads from model dir if present)
+    # Weights can be overridden via env for stronger SGD influence after bulk feedback
+    tw = os.environ.get("ENSEMBLE_TRANSFORMER_WEIGHT")
+    aw = os.environ.get("ENSEMBLE_ADAPTIVE_WEIGHT")
+    if tw is not None and aw is not None:
+        transformer_weight = float(tw)
+        adaptive_weight = float(aw)
+    elif aw is not None:
+        adaptive_weight = float(aw)
+        transformer_weight = 1.0 - adaptive_weight
+    elif tw is not None:
+        transformer_weight = float(tw)
+        adaptive_weight = 1.0 - transformer_weight
+    else:
+        transformer_weight = 0.7
+        adaptive_weight = 0.3
     adaptive_path = model_path / "adaptive_classifier.pkl"
     ensemble = AdaptiveEnsemble(
         transformer_model=model,
         transformer_tokenizer=tokenizer,
         id2label=id2label,
         adaptive_model_path=adaptive_path,
+        transformer_weight=transformer_weight,
+        adaptive_weight=adaptive_weight,
     )
-    print("Ensemble ready (transformer + adaptive classifier)")
+    print(f"Ensemble ready (transformer={transformer_weight}, adaptive={adaptive_weight})")
 
 
 class ClassifyRequest(BaseModel):
@@ -117,6 +134,10 @@ class HealthResponse(BaseModel):
 class FeedbackRequest(BaseModel):
     complaint_text: str = Field(..., description="Original complaint text")
     correct_category: str = Field(..., description="Category selected by human")
+
+
+class BatchFeedbackRequest(BaseModel):
+    feedbacks: List[dict] = Field(..., description="List of feedback objects with complaint_text and correct_category")
 
 
 @app.get("/health", response_model=HealthResponse)
@@ -193,23 +214,78 @@ def classify_batch(req: BatchClassifyRequest):
 @app.post("/feedback")
 def feedback(req: FeedbackRequest):
     """Submit human feedback: correct category for a complaint. Updates the adaptive classifier."""
-    if ensemble is None:
-        raise HTTPException(status_code=503, detail="Model not loaded")
-    text = (req.complaint_text or "").strip()
-    if not text:
-        raise HTTPException(status_code=400, detail="complaint_text must be non-empty")
-    category = (req.correct_category or "").strip()
-    if not category:
-        raise HTTPException(status_code=400, detail="correct_category must be non-empty")
-    if category not in id2label.values():
-        raise HTTPException(
-            status_code=400,
-            detail=f"correct_category must be one of the 78 labels (e.g. use GET /labels). Got: {category[:50]}...",
-        )
-    ensemble.learn([text], [category])
-    adaptive_path = Path(MODEL_DIR) / "adaptive_classifier.pkl"
-    ensemble.save_adaptive_model(adaptive_path)
-    return {"status": "learned", "message": "Adaptive classifier updated with feedback"}
+    try:
+        if ensemble is None:
+            raise HTTPException(status_code=503, detail="Model not loaded")
+        text = (req.complaint_text or "").strip()
+        if not text:
+            raise HTTPException(status_code=400, detail="complaint_text must be non-empty")
+        category = (req.correct_category or "").strip()
+        if not category:
+            raise HTTPException(status_code=400, detail="correct_category must be non-empty")
+        if category not in id2label.values():
+            raise HTTPException(
+                status_code=400,
+                detail=f"correct_category must be one of the 78 labels (e.g. use GET /labels). Got: {category[:50]}...",
+            )
+        ensemble.learn([text], [category])
+        adaptive_path = Path(MODEL_DIR) / "adaptive_classifier.pkl"
+        # Ensure directory exists
+        adaptive_path.parent.mkdir(parents=True, exist_ok=True)
+        ensemble.save_adaptive_model(adaptive_path)
+        return {"status": "learned", "message": "Adaptive classifier updated with feedback"}
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_detail = f"Error updating adaptive classifier: {str(e)}\n{traceback.format_exc()}"
+        print(f"Feedback error: {error_detail}")
+        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
+
+
+@app.post("/feedback/batch")
+def feedback_batch(req: BatchFeedbackRequest):
+    """Submit multiple feedback samples at once. More efficient than individual /feedback calls."""
+    try:
+        if ensemble is None:
+            raise HTTPException(status_code=503, detail="Model not loaded")
+        if not req.feedbacks:
+            raise HTTPException(status_code=400, detail="feedbacks list must be non-empty")
+        
+        texts = []
+        categories = []
+        for i, fb in enumerate(req.feedbacks):
+            text = (fb.get("complaint_text") or "").strip()
+            category = (fb.get("correct_category") or "").strip()
+            if not text:
+                raise HTTPException(status_code=400, detail=f"Feedback {i}: complaint_text must be non-empty")
+            if not category:
+                raise HTTPException(status_code=400, detail=f"Feedback {i}: correct_category must be non-empty")
+            if category not in id2label.values():
+                raise HTTPException(
+                    status_code=400,
+                    detail=f"Feedback {i}: correct_category must be one of the 78 labels. Got: {category[:50]}...",
+                )
+            texts.append(text)
+            categories.append(category)
+        
+        # Batch learn - more efficient for SGDClassifier
+        ensemble.learn(texts, categories)
+        adaptive_path = Path(MODEL_DIR) / "adaptive_classifier.pkl"
+        adaptive_path.parent.mkdir(parents=True, exist_ok=True)
+        ensemble.save_adaptive_model(adaptive_path)
+        return {
+            "status": "learned",
+            "message": f"Adaptive classifier updated with {len(texts)} feedback samples",
+            "count": len(texts)
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        import traceback
+        error_detail = f"Error updating adaptive classifier: {str(e)}\n{traceback.format_exc()}"
+        print(f"Batch feedback error: {error_detail}")
+        raise HTTPException(status_code=500, detail=f"Internal error: {str(e)}")
 
 
 if __name__ == "__main__":

@@ -28,8 +28,15 @@ env/
 ENV/
 .venv
 
-# CMS_RoBerta – ignore only the large weights file (rest of folder is tracked)
+# CMS_RoBerta – model (large files only)
 CMS_RoBerta/model/model.safetensors
+CMS_RoBerta/model/adaptive_classifier.pkl
+
+# Testing – generated/source data and reports
+Testing/clean_samples.csv
+Testing/report3.csv
+Testing/synthetic_pmc_data.csv
+Testing/sgd_learning_metrics.md
 
 # Environment
 .env
