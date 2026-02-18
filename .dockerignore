@@ -52,5 +52,12 @@ tests/
 .ipynb_checkpoints/
 *.ipynb
 
-# Model weights – exclude only the large file; all other model files are included
+# Model – exclude large model files (mount at runtime or copy separately)
 CMS_RoBerta/model/model.safetensors
+CMS_RoBerta/model/adaptive_classifier.pkl
+
+# Testing – generated/source data and reports
+Testing/clean_samples.csv
+Testing/report3.csv
+Testing/synthetic_pmc_data.csv
+Testing/sgd_learning_metrics.md

@@ -1,0 +1,847 @@
+{
+  "categories": {
+    "Abhyagat Kaksha": {
+      "before_accuracy": 82.17,
+      "after_accuracy": 42.86,
+      "improvement": -39.31,
+      "before_avg_confidence": 0.7841,
+      "after_avg_confidence": 0.7388,
+      "feedback_samples": 122,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "रामटेकडी-वानवडी क्षेत्रीय कार्यालय अंतर्गत रामटेकडी येथील डॉ.बाबासाहेब आंबेडकर सांस्कृतिक भवन पुणे महानगरपालिका",
+          0.7101
+        ],
+        [
+          "Test Complaint",
+          0.2379
+        ],
+        [
+          "श्री ललित बोडे उपअभियंता यांचे ९० दिवसांत निलंबन समाप्त केले नसल्याने मे. सर्वोच्च न्यायालयाचे व मा. राज्यपाल यांच्या दि. ०९/०७/२०१९ रोजीच्या शासन निर",
+          0.7102
+        ],
+        [
+          "माझ्या तक्रार अर्जाच्या अनुषंगाने, सिंहगड रोड का सबधित विभागाने दिलेल्या उत्तरावर माझे (म्हणणे) प्रतिउत्तर सादर करण्याबाबत.",
+          0.7058
+        ],
+        [
+          "आंबेगाव बु,स.न.८/१/७ क्षेत्र २४ आर मधील भूखंडाच्या उत्तर बाजूस...श्री.बी.जी.किंगरे,रा.बि-१/६,सुंदर नागरी,कोथरूड,पुणे-४११०३८ यांच्या दि.०२/०२/२०२६ रोजी",
+          0.7078
+        ]
+      ]
+    },
+    "Bhavan": {
+      "before_accuracy": 80.62,
+      "after_accuracy": 100.0,
+      "improvement": 19.38,
+      "before_avg_confidence": 0.8379,
+      "after_avg_confidence": 0.9503,
+      "feedback_samples": 127,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "३) डाव्या कोपऱ्यावरील जिम जर सोमेश्वरवाडीतील लोकांसाडी बसवले तर ते त्यांना सोईचे पडेल, कारण येथील सर्व बिल्डिंग मध्ये जिम आहेत.\nकृपया विचार व्हावा ही ",
+          1.0
+        ],
+        [
+          "सदर ठिकाणी नगरसेवकांच्या निधीमधून बांधलेली ओपन जिमचे साहित्य खराब झालेले आहे ते दुरुस्त करण्यात यावेत धन्यवाद",
+          0.714
+        ],
+        [
+          "पुणे महानगर पालिकेच्या नवीन इमारतीची लिफ्ट गेले अनेक दिवस झाले बंद पडलेल्या आवसते मध्ये आहे \nत्याचा मुळे नागरिकांना येण्या जाण्या साठी खूप नाहक त्रास ",
+          1.0
+        ],
+        [
+          "सदर ठिकाणी सार्वजनिक शौचालय मधील सात ते आठ नळकोंडे  तुटलेले आहेत तरी तक्रारीची तातडीने दखल घेऊन नळकोंडे बसवण्यात यावे",
+          1.0
+        ],
+        [
+          "सदर ठिकाणी मनपाची मोकळी जागा आहे त्याला गेट होते ते तुटले आहे तरी ते दुरुस्त करून बसवून हवे आहे कारण गेट नसल्या मुळे अनेक नागरिक याठिकाणी प्रचंड प्रमा",
+          0.569
+        ]
+      ]
+    },
+    "City Development Plan": {
+      "before_accuracy": 75.19,
+      "after_accuracy": 99.45,
+      "improvement": 24.26,
+      "before_avg_confidence": 0.6748,
+      "after_avg_confidence": 0.6131,
+      "feedback_samples": 120,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "विठलवाडी - वारजे नदीकाठचा रस्ता व्हावा\n\nराजाराम पूल ते फनटाईम उड्डाणपुलाचे व मेट्रोच्या खांबांचा पाया घेण्याचे काम सुरू आहे.  त्यामुळे वाहतूककोंडी होत",
+          0.9962
+        ],
+        [
+          "Lack of security on bypass of katraj dehu road.Having some police would make the area safer.",
+          0.7019
+        ],
+        [
+          "Actually, it's about Garden Garbage not collected in Sahakar Nagar 1, Opp. Vidya Vikas School, Pune -9. The branches are lying on the street in Lane N",
+          0.4188
+        ],
+        [
+          "test",
+          0.3974
+        ],
+        [
+          "We reside at clover village society at Wanowrie. Since a week there is a disgusting foul smell in the area of garbage pile up. Not sure if the employe",
+          0.6947
+        ]
+      ]
+    },
+    "Communicable Disease": {
+      "before_accuracy": 68.99,
+      "after_accuracy": 50.0,
+      "improvement": -18.99,
+      "before_avg_confidence": 0.6644,
+      "after_avg_confidence": 0.5816,
+      "feedback_samples": 127,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "I have logged complaint on 27.07.22 about stagnant water & spread of mosquitos in v.large number... Dengue patients found...but very disappointed to s",
+          0.7002
+        ],
+        [
+          "पानी ब्लॉक केला",
+          0.4223
+        ],
+        [
+          "Slum water developed",
+          0.2865
+        ],
+        [
+          "Subject: Urgent Request to Address Contaminated Area in Ashok Nagar colony bhawani peth pune.\nRespected Sir/Madam,\nI am writing to bring to your kind ",
+          0.7038
+        ],
+        [
+          "Hyacinth growth increased in Mulla-Mudha river near Kharadi New town area. It may cause mosquito breading and spread diseases like dengue, chickenguni",
+          0.6902
+        ]
+      ]
+    },
+    "Environment (H.O)": {
+      "before_accuracy": 81.4,
+      "after_accuracy": 50.0,
+      "improvement": -31.4,
+      "before_avg_confidence": 0.7015,
+      "after_avg_confidence": 0.6913,
+      "feedback_samples": 125,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "Nearby homes from slum areas burning garbage everyday that causing difficulty in taking breath. It is very difficult for Sr. citizens to go outside.",
+          0.7023
+        ],
+        [
+          "पुण्यात मेट्रो ने जाताना अनेक ठिकाणी \nमुळा व मुठा नद्यांवर \n अनेक ठिकाणी \nअश्या वनस्पती फोफावलेल्या \nदिसतात. त्या वेळीच काढाव्यात. \nनाही तर खूप पूर ये",
+          0.7324
+        ],
+        [
+          "Respected \n sir, alarming level of hyacinth in Mula mutha near Mundhwa bridge , hardly any progress Pls help.\nHope some attention is given here and yo",
+          0.7036
+        ],
+        [
+          "Ramnadi opposite Passport office Baner Pashan link road.\n\nGrievance - Water hyacinth to be removed",
+          0.7036
+        ],
+        [
+          "On 19-Jun-24 Wednesday one boy was drowned in Autadewadi lake behind Godrej Prana. \n\nThis Autadewadi lake is a percolation dam built by Laghu Patbandh",
+          0.704
+        ]
+      ]
+    },
+    "Garbage Depot Complaint": {
+      "before_accuracy": 70.54,
+      "after_accuracy": 50.0,
+      "improvement": -20.54,
+      "before_avg_confidence": 0.6848,
+      "after_avg_confidence": 0.8258,
+      "feedback_samples": 127,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "It's daily issue in Jasminium Magarpatta city, there is a daily garbage burning from Hadapsar industrial area. Smoke is coming to entire Magarpatta ci",
+          0.7023
+        ],
+        [
+          "Tree leaves shop scrap burnt at Wadgaonsheri chowk behind Hafeez pan shop",
+          0.7034
+        ],
+        [
+          "At sakal nagar",
+          0.185
+        ],
+        [
+          "Request for Immediate Action Against Garbage Burning Near Neco Hillscape Society Wall.I am writing to bring to your immediate attention a significant ",
+          0.6834
+        ],
+        [
+          "वरील पत्त्यावर कचरा संकलन करणारी गाडी १५-१५ दिवस येत नाही त्यामुळे नागरिक नाईलाजास्तव रात्रीच्या वेळी रस्त्यावरच कचरा टाकत आहेत यास महानगरपालिकेसच जबा",
+          0.7146
+        ]
+      ]
+    },
+    "Garden Civil maintenance work": {
+      "before_accuracy": 87.6,
+      "after_accuracy": 100.0,
+      "improvement": 12.4,
+      "before_avg_confidence": 0.7297,
+      "after_avg_confidence": 0.7391,
+      "feedback_samples": 124,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "गार्डनमध्ये मुलांना खेळण्याकरिता ग्राउंड नीट नाहीये आणि खेळण्याची उपकरण सुद्धा नाहीये त्यामुळे लहान मुलांची  गैरसोय होत आहे तरी या तक्रारीची लवकरात लव",
+          0.7178
+        ],
+        [
+          "dis is park condition now a days pls clean  Padmashree Mohan Dhariya Environmental Park",
+          0.7034
+        ],
+        [
+          "Test Complaint - Please Reject",
+          0.1776
+        ],
+        [
+          "This is to complaint for inconvenience at Madgulkar garden - No water in toilets due to which foul smell coming too far. Hope this will resolve as ear",
+          0.7014
+        ],
+        [
+          "1)Footpath la lagun aslelya zadana pani dile jaat nasun zade mothya pramanat walali aahet.\n2)zadana kadhi ani kiti wajta pani dile jaate???",
+          0.6942
+        ]
+      ]
+    },
+    "Garden Cleaning & maintenance": {
+      "before_accuracy": 86.05,
+      "after_accuracy": 100.0,
+      "improvement": 13.95,
+      "before_avg_confidence": 0.6993,
+      "after_avg_confidence": 0.7768,
+      "feedback_samples": 127,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "Road side tree inclined towards highway.might fall in rain",
+          0.6521
+        ],
+        [
+          "The historic bund which was 1869 was broken down and a new damage with gates had been constructed several years back. However the water level has stil",
+          0.6524
+        ],
+        [
+          "टिळक रोड येथील कोणत्याही झाडाला आळे केले ले नाही पाणी घातले नाही याची नोंद घ्यावी",
+          0.7035
+        ],
+        [
+          "स्वामी विवेकानंद रस्ता येथील दुभाजकामध्ये राज्य फुल ताम्हण याची वृक्ष लागवड करावी \n( सध्या तेथे काम सुरू आहे)",
+          0.7298
+        ],
+        [
+          "सदर ठिकाणी रोड कडेला झाडे लावण्यात यावी. .",
+          0.7009
+        ]
+      ]
+    },
+    "Garden Electric maintenance work": {
+      "before_accuracy": 85.27,
+      "after_accuracy": 100.0,
+      "improvement": 14.73,
+      "before_avg_confidence": 0.7193,
+      "after_avg_confidence": 0.7514,
+      "feedback_samples": 125,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "सदर ठिकाणी तक्रारदार यांच्या म्हणण्यानुसार उद्यानामध्ये असलेले पथदिवे अजूनही चालू आहेत तरी तक्रारीची दखल घेऊन ते बंद करण्यात यावे.",
+          0.7167
+        ],
+        [
+          "No street light on khadakwasla 10 number road",
+          0.6877
+        ],
+        [
+          "सात ते आठ लाईट बंद असल्यामुळे मोबाईल टॉर्च वापरावा लागतो",
+          0.7023
+        ],
+        [
+          "Walvekar garden sahakar Nagar,some bulbs are fused.replace it immediately.",
+          0.7034
+        ],
+        [
+          "Sahakarnagar Walvekar Garden,there are no lights on one side of the garden for the last three days.Garden staff says complaint have been made to VISPU",
+          0.7034
+        ]
+      ]
+    },
+    "General Administration": {
+      "before_accuracy": 83.72,
+      "after_accuracy": 100.0,
+      "improvement": 16.28,
+      "before_avg_confidence": 0.7339,
+      "after_avg_confidence": 0.8622,
+      "feedback_samples": 123,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "सेवाजेष्ठता यादीवरील आक्षेपाबाबत",
+          0.4853
+        ],
+        [
+          "उप अभियंता (स्थापत्य ) पदावरून कार्यकारी अभियंता पदावर पदोन्नती करणेबाबत",
+          0.7051
+        ],
+        [
+          "Many PMC ward representatives are closing complaints without actually addressing issue or taking necessary actions. Hardly any action is taken on regi",
+          0.705
+        ],
+        [
+          "Permission is given to Pristine developer for building construction on Pashan Baner link road. They are often draining concrete mixture, water on road",
+          0.701
+        ],
+        [
+          "बिबवेवाडी क्षेत्रीय कार्यालयात कित्येक दिवस झाला प्रिंटर बंद आहे लोक रोज चकरा मारतायेत म्हातारी माणसं पण कंटाळीत कृपया विनंती 🙏",
+          0.7478
+        ]
+      ]
+    },
+    "Heritage Cell (Bhavan HO)": {
+      "before_accuracy": 69.74,
+      "after_accuracy": 100.0,
+      "improvement": 30.26,
+      "before_avg_confidence": 0.6688,
+      "after_avg_confidence": 0.731,
+      "feedback_samples": 75,
+      "test_samples": 76,
+      "similar_complaints": [
+        [
+          "ऐतिहासिक पेशवेकालीन कात्रज झू तलाव पण साफ करा एकदा, गटारीच स्वरूप धारण केले आहे",
+          0.7113
+        ],
+        [
+          "Vaibahv is good boy",
+          0.2469
+        ],
+        [
+          "प्रति,\nमा.आयुक्त,\nपुणे महानगरपालिका\n\n\nविषय :- पुणे महानगरपालिकेस पडलेल्या नानासाहेब पेशव्यांच्या  विसरा बाबत....\n\n\nमहोदय,\n         उपरोक्त विषयांकित  ",
+          0.8398
+        ],
+        [
+          "शनिवारवाडा पुणे\nदर्शनी भागात कचरा,विखुरलेले बांधकाम साहित्य,भिंतीलगत कचरा,नगारखाण्यात कपडे वळायचा दोऱ्या बंधल्यात, तुटलेली कारंजी,गंजलेले पुसट माहिती ",
+          0.7072
+        ],
+        [
+          "विषय :भिडेवाडा राष्ट्रीय स्मारकाच्या काम सुरु करण्यात दरंगाई करण्या बाबत . \nसन १८४८ साली महात्मा फुले व सावित्रीबाई फुले यांनी पुण्यातील भिडे वाड्यात ",
+          0.7093
+        ]
+      ]
+    },
+    "Information Technology": {
+      "before_accuracy": 89.92,
+      "after_accuracy": 98.46,
+      "improvement": 8.54,
+      "before_avg_confidence": 0.7168,
+      "after_avg_confidence": 0.7082,
+      "feedback_samples": 122,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "Hello Team,\nI have registered myself under RTS for Dog keep license and trying to login with the OTP but it is saying the OTP is been send to register",
+          0.6933
+        ],
+        [
+          "I have uploaded two complaint on PMC road Mitra App.. \nBut have not assigned any person for the complaint.\nTwo days have been past but no response..\n\n",
+          0.6916
+        ],
+        [
+          "Bavdhan spelling is to be corrected. Mentioned incorrectly as Bawadhan",
+          0.7007
+        ],
+        [
+          "Garbage is not being collected at Vastunagar Society, Bibwewadi Kondhwa Road, opposite Zala Complex, Pune 411037. No action is taken despite of many c",
+          0.7019
+        ],
+        [
+          "नागरिकांच्या म्हणण्यानुसार पुणे कनेक्ट ॲप मध्ये लॉगिन करताना ओटीपी येत नाही. कृपया त्वरित दखल घेऊन तक्रारीचे निवारण करण्यात यावे.",
+          0.7076
+        ]
+      ]
+    },
+    "Lashkar Water Supply": {
+      "before_accuracy": 61.54,
+      "after_accuracy": 50.0,
+      "improvement": -11.54,
+      "before_avg_confidence": 0.6949,
+      "after_avg_confidence": 0.7022,
+      "feedback_samples": 76,
+      "test_samples": 78,
+      "similar_complaints": [
+        [
+          "CB5029 सदर ठिकाणी नागरिकांना काही दिवसांपासून पाणीपुरवठा हा अत्यंत कमी दाबाने होत आहे त्यामुळे नागरिकांना खूप त्रास होत आहे यासंदर्भात आधीही तक्रार के",
+          0.7003
+        ],
+        [
+          "From last one week, plot no 98 behind Kirloskar pneumatic has no single drop of water. we are frequently calling and in touch with wall-man but nо any",
+          0.7025
+        ],
+        [
+          "गेले सात ते आठ दिवस आम्हाला फक्त तीन ते चारच मिनिटे पाणी मिळत आहे संपूर्ण गणपती हाउसिंग सोसायटीमध्ये गली नंबर चार येथे पाणी पोहोचत नाहीये कृपया पाण्या",
+          0.7114
+        ],
+        [
+          "Subject: Urgent Complaint: No Water in Overhead Tank & Critically Low Water Pressure\n\nDear Sir/Ma'am,\n\nI am writing to raise a serious and ongoing iss",
+          0.7017
+        ],
+        [
+          "मी केतन मिलिंद आल्हाट ,राहणार आल्हाट वसाहत,हडपसर गाव.गेले कित्त्येक महिने मला आणि माझ्या परिसराला अवेळी (पहाटे ६ ते ७:३०) अतिशय कमी दाबाने पाणी पुरवठा",
+          0.9807
+        ]
+      ]
+    },
+    "License (Parwana)": {
+      "before_accuracy": 79.07,
+      "after_accuracy": 99.17,
+      "improvement": 20.1,
+      "before_avg_confidence": 0.7249,
+      "after_avg_confidence": 0.789,
+      "feedback_samples": 124,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "माननीय :मुख्य अधिकारी परवानाधारक विभाग: सावरकर भवन टिळक रोड पुणे विषय: ध्वनि प्रदूषण तक्रार अर्ज: अर्जदार फौजिया रहिम रोकडे राहणार :२९४ गुरुवार पेठ रा",
+          0.7257
+        ],
+        [
+          "आपस नावाचा एक हॉटेल विक्रेता व्यावसायिक संकुलातील अलॅक्रिटी जागेत हॉटेल चालवत आहे, त्याने चिमणी बसवली नाही आणि त्यामुळे स्वयंपाकघरातून येणारे धोकादायक",
+          0.7058
+        ],
+        [
+          "Residential अरिया मधी चीली मिली ची फॅक्टरी चालू आहे त्याचा धूर येवडा जास्त आहे की आजू बाजू च्या बिल्डिंग ला पूर्ण काळ झालं आहे सकाळी ६ नंतर भट्टीचा खू",
+          0.7317
+        ],
+        [
+          "सदर ठिकाणी नागरिकांच्या म्हणण्यानुसार तेथील पिठाची गिरणी ही रात्री उशिरापर्यंत सुरू असते जे कि त्यांच्या परवाना च्या नियमबाह्य आहे तरी सदर पिठाच्या गि",
+          0.7173
+        ],
+        [
+          "नागरिकांच्या म्ह्णणानुसार त्यांच्या परिसरात रेडी मिक्सरचे मोठ्या प्रमाणात प्लांट झालेले आहेत सदर प्लांट मधून  मोठ्या प्रमाणात हवेचे  प्रदूषण होत आहे र",
+          0.8554
+        ]
+      ]
+    },
+    "PMC Properties": {
+      "before_accuracy": 83.72,
+      "after_accuracy": 96.92,
+      "improvement": 13.2,
+      "before_avg_confidence": 0.7384,
+      "after_avg_confidence": 0.8018,
+      "feedback_samples": 122,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "Dear Sir, \nMy name is Sudeep P Vetal. My property tax id is O/L/82/27521036. My apartment is located at Fursungi & I'm with my family lives there. Whe",
+          0.6892
+        ],
+        [
+          "Community hall cancelation",
+          0.6874
+        ],
+        [
+          "जागा छान/ स्वच्छ करून घेतली आहे. \n\nसदर जागा मनपाची आहे तसा बोर्ड येथे लावावा \nतसेच\nमुलांना खेळायला मैदान तयार करण्यासाठी जमीन दाबून, लाल माती टाकून मि",
+          0.7261
+        ],
+        [
+          "कवठ्ठी अडा मैदान शनिपार जवळ येथे पे & पार्क पैसे घेत आहेत व गाडी धुऊन देण्याचे वेगळे तरी माझ्या माहिती प्रमाणे हे मैदान लहान मुलांसाठी खेळण्यासाठी आहे",
+          0.7172
+        ],
+        [
+          "मनपाचे ताब्यात असलेले प्लॉट वर बांधकाम v, अतिक्रमण,",
+          0.7043
+        ]
+      ]
+    },
+    "PMC Security Complaints": {
+      "before_accuracy": 86.82,
+      "after_accuracy": 66.67,
+      "improvement": -20.16,
+      "before_avg_confidence": 0.7837,
+      "after_avg_confidence": 0.7977,
+      "feedback_samples": 126,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "नागरिकांच्या म्हणण्यानुसार राजीव गांधी जो पार्कमध्ये गेल्यानंतर कापडी पिशवी घेण्याच्या अधिकाऱ्यांनी त्यांना सुट्टे पैसे लवकर दिले नाहीत तसेच पैसे घेतल",
+          0.7291
+        ],
+        [
+          "नमस्कार साहेब. सदर साहित्य गार्डन मध्ये असून गार्डनला वाचमेन नाही. गार्डन गेट ला कुलूप नाही. त्या मुले सदर साहित्य चोरी होण्याची शक्यता नाकारता येत ना",
+          0.7095
+        ],
+        [
+          "महोदय मुकुंदराव आंबेडकर उद्यान माधव नगर धानोरी येथील ओपन जिम मध्ये सद्ध्या एक सुरक्षा रक्षक आहे ..त्याच्या जोडीला आणखीन एक सुरक्षा रक्षकाची नेमणूक करा",
+          0.7321
+        ],
+        [
+          "This is the complaint regarding the watchman bhausaheb of pashan lake garden. He is very arrogant and misbehaving with citizens. He talks in extremely",
+          0.704
+        ],
+        [
+          "शहर अभियंता कार्यालयात प्रकरण सुनावणी मध्ये  काही अनोळखी व्यक्तींनी मी विकसक, रहिवासी, वा खात्यातील अधिकारी यांचे ओळखीचा आहे असे भासवून त्यांचेतर्फे प",
+          0.7299
+        ]
+      ]
+    },
+    "Primary Education": {
+      "before_accuracy": 92.25,
+      "after_accuracy": 100.0,
+      "improvement": 7.75,
+      "before_avg_confidence": 0.7876,
+      "after_avg_confidence": 0.9902,
+      "feedback_samples": 128,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "शाळेत कम॔चारी नसल्या कारणास्तव दारुड्यांचा  अड्डा....म.न.पा.शाळा \n\nhttps://www.instagram.com/reel/DALnd-XACxT/?igsh=ZjFkYzMzMDQzZg==",
+          0.7044
+        ],
+        [
+          "PMC School Gymnasium house keeping not done.  Requires sweeping, cleaning of garbage, and immediate help",
+          0.6925
+        ],
+        [
+          "School complaint\n\nEncroachment in Residential Premises\n\nAn illegal english medium school by name - Oyester international school, has been started sudd",
+          0.6681
+        ],
+        [
+          "The below school has announced a change of timing for PSY-3 & PSY-4 (i.e. LKG & UKG). The school notice is attached for your reference. The new timing",
+          0.7042
+        ],
+        [
+          "हि अवस्था स्थानिक शिक्षक व मुख्याध्यापक यांनी केले आहे तरी त्यांच्यावर कारवाई केली पाहिजे हि नम्र विनंती🙏😊",
+          0.7192
+        ]
+      ]
+    },
+    "Property Tax-TAT(Title Transfer)": {
+      "before_accuracy": 92.25,
+      "after_accuracy": 100.0,
+      "improvement": 7.75,
+      "before_avg_confidence": 0.7306,
+      "after_avg_confidence": 0.824,
+      "feedback_samples": 124,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "Dear PMC Sir/ Madam,\nThis email is regarding the complaint against the property tax bill  received on 04th July 2020 against Property Id - O/K/81/0462",
+          0.6971
+        ],
+        [
+          "Navat Badal karne Ahe He Mi 2 Mahine zale  Online Kele Ahe Pan Ajun Kahi Zale Nahi Chalan No  TAT101624250016872",
+          0.7035
+        ],
+        [
+          "Raised W107464 to update name as there is mistake from Clerk - Typist but now asking for affidavit. Actually according to index2 name should be correc",
+          0.6166
+        ],
+        [
+          "महोदय ,\nमला माझ्या कर पावती वर माझे नाव टाकायचे आहे. सध्या माझ्या कर पावती वर विकासकाचे नाव आहे. तरी कृपया आपण यात लक्ष घालून मला हे बदल करून द्यावे",
+          0.7248
+        ],
+        [
+          "There has been no update in the title transfer application TAT101624250006080 since a month. The challan fees was paid as well on the same day. Kindly",
+          0.7036
+        ]
+      ]
+    },
+    "Public Health Related": {
+      "before_accuracy": 79.84,
+      "after_accuracy": 83.33,
+      "improvement": 3.49,
+      "before_avg_confidence": 0.6931,
+      "after_avg_confidence": 0.7374,
+      "feedback_samples": 123,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "खाजगी दवाखान्याची माहिती खालीलप्रमाणे :\n\nदवाखान्याचे नाव : लाईफ लाईन क्लिनिक.\n\nपता : ८०६,शिवाजीनगर कामगार पुतळा वसाहत,पुणे-411005.\n\nडॉक्टरचे नाव : डॉ.",
+          0.7441
+        ],
+        [
+          "Lot of pollution happening because of the construction work next to our hospital Magche 3-4 mahine asach dhuur kartat Pls check pollution in this area",
+          0.7
+        ],
+        [
+          "सदर ठिकाणी हॉस्पिटल मध्ये हॉस्पिटल चे गोडाऊन चे साहित्य ठेवलेले आहे टेरेस वरच सर्जिकल चे कपडे धुतात अनधिकृत बांधकाम करून बाहेर बसवतात लोकांना कोणच्याह",
+          0.7223
+        ],
+        [
+          "Our sewage is not flowing in the main drain chamber on the road.  Blockage needs to be removed.",
+          0.5779
+        ],
+        [
+          "Citizen is covid positive and no one has visited to fumigate his house .Please look into this .",
+          0.6799
+        ]
+      ]
+    },
+    "RTI Related Complaint": {
+      "before_accuracy": 75.0,
+      "after_accuracy": 0,
+      "improvement": -75.0,
+      "before_avg_confidence": 0.7148,
+      "after_avg_confidence": 0,
+      "feedback_samples": 24,
+      "test_samples": 24,
+      "similar_complaints": [
+        [
+          "आम्ही खाली सही करणारे VTP Leonara Co-operative Housing Society Ltd, म्हाळुंगे, पुणे येथील रहिवासी आहोत. आमच्या सोसायटीतील इमारतीमध्ये बांधकाम व्यावसाय",
+          0.7853
+        ],
+        [
+          "i live in aradhya lane, balewadi . sometimes there is a lot of haphazard parking in our lane . please let me know whether we can barricade our lane wi",
+          0.7012
+        ],
+        [
+          "प्रति,\nकार्यकारी अभियंता,\nबांधकाम विभाग. झोन क्रमांक २\nपुणे महापालिका,\nपुणे.\n\nविषय: राजस सोसायटी- सर्वे क्रमांक २०/२१/२३ (जुना), २३/२४/२६ (नवीन), कात्",
+          0.934
+        ],
+        [
+          "Ambegaon Budruk Yethe Manpa Panipurawatha suru honebabad status",
+          0.6973
+        ],
+        [
+          "माझ्या दि. ०६/०८/२०२४ रोजीच्या ऑनलाईन RTI अपीलावर प्रथम अपीलीय अधिकारी तथा महापालिका सहाय्यक आयुक्त (कर आकारणी व कर संकलन विभाग,  पुणे महानगरपालिका) श",
+          0.7525
+        ]
+      ]
+    },
+    "Sports": {
+      "before_accuracy": 85.27,
+      "after_accuracy": 100.0,
+      "improvement": 14.73,
+      "before_avg_confidence": 0.7233,
+      "after_avg_confidence": 0.9081,
+      "feedback_samples": 125,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "Clean grass",
+          0.3662
+        ],
+        [
+          "Pl start parking lights during evening time in pmc badminton court in ghavhane playground Shivneri nagar Kondhwa khurd Pune 48 as all drunkards sit an",
+          0.705
+        ],
+        [
+          "येथे Cardi JYM विभागातील 5 Treadmill मशीन आहेत त्यापैकी एकच मशीन चालू आहें बाकी मशीन कित्तेक महिने बंद आहें कृपया या मशीन दुरुस्त करून घ्यावे.  पालिके",
+          0.7852
+        ],
+        [
+          "Pl open pmc badminton court in for common public as it is always locked.",
+          0.7048
+        ],
+        [
+          "जनरल अरुणकुमार वैद्य स्टेडीयम पुणे म न पा भवानी पेठ येथे गवत वाढले आहे  कृपया नोंद घ्यावी",
+          0.7122
+        ]
+      ]
+    },
+    "TDR": {
+      "before_accuracy": 84.0,
+      "after_accuracy": 0.0,
+      "improvement": -84.0,
+      "before_avg_confidence": 0.7055,
+      "after_avg_confidence": 0.6195,
+      "feedback_samples": 24,
+      "test_samples": 25,
+      "similar_complaints": [
+        [
+          "A TDR certificate has been issued relating to survey no 55 ( old 89 )-12 me DP rasta ( ekun  2 ) , 60 meter DP rasta , parking P 25 reservation TDR ( ",
+          0.704
+        ],
+        [
+          "Need to buy tdr 12 sq meter",
+          0.704
+        ],
+        [
+          "प्रति ,\nशहर अभियंता साहेब ,\nटी .डी आर सेल .\nपुणे म.न.पा \nशिवाजीनगर पुणे . \n\nविषय :- मौजे धायरी येथील सर्व्हे न १२५/११, १२५/६/२ व इतर मधील अमिनीटी स्पॅ",
+          0.8127
+        ],
+        [
+          "Survey no. 209, orient park, gate 7,  Sadesatra Nali Rd, Hadapsar have started illegal construction on his land. It has to be stopped.",
+          0.6781
+        ],
+        [
+          "survey no -48/2 preet prasana complex ganesh nagar wadgaov sheri pune-14 hya milakati ata 01/01/2025 te 15/03/2025 tdr sathi kiti file alaya tyachi sa",
+          0.7044
+        ]
+      ]
+    },
+    "Traffic-Planning": {
+      "before_accuracy": 94.57,
+      "after_accuracy": 98.39,
+      "improvement": 3.81,
+      "before_avg_confidence": 0.7101,
+      "after_avg_confidence": 0.7026,
+      "feedback_samples": 125,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "bavdhan aditya sagun mall bus stop (NDA - Pashan Road). people travelling by PMC bus use to park the vehicle mostly two wheeler opposite mall and take",
+          0.7048
+        ],
+        [
+          "road it 2 way only and many vehicle are park on road side which even if bus come in morning not even two where can pass pareller.. need action it and ",
+          0.6971
+        ],
+        [
+          "There is massive traffic at Dattanagar chowk everyday. Difficult to reach at office on time. Need proper management at that chowk and near around. Som",
+          0.7036
+        ],
+        [
+          "Pune Metro to take over the long-unused JM Road parking lot, reviving it for commuters under a revenue-sharing model with PMC.\n@PMCPune",
+          0.7035
+        ],
+        [
+          "Everyday there are many vehicles parked near anna idli, dadus sweet emporio, bhairavi hotels on the baner road. already one lane is taken by the metro",
+          0.7037
+        ]
+      ]
+    },
+    "Unauthorized banners / advertisements / Permit / license in Pune City": {
+      "before_accuracy": 71.32,
+      "after_accuracy": 75.0,
+      "improvement": 3.68,
+      "before_avg_confidence": 0.6915,
+      "after_avg_confidence": 0.7026,
+      "feedback_samples": 125,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "हा महाशय गेली कित्येक वर्षे फ्लेक्स , बोर्डस , बॅनर्स लावून पुणे शहराचे विद्रुपीकरण करतोय. डेक्कन जिमखाना , कर्वे रोड , शास्त्री रोड , फर्ग्युसन कॉलेज",
+          0.707
+        ],
+        [
+          "कालपासुन 15x15, 20x20चे नवीन hoardingsआल्या कॅबिनेटमंत्री पदी निवड झाल्याबद्दल.पुढे जावून ह्यांना contract मिळवा म्हणुन हे सर्व करतात\n \n@PMCPune\n कोथर",
+          0.7279
+        ],
+        [
+          "Parvati chauk babasaheb purandare ghara samor roz 100 foot che Baner lagtat tyavr bandi GHALA. Rastyavr yenarya janarya gadyana tras hoto ahe ani parv",
+          0.7039
+        ],
+        [
+          "Direct PMC staff to immediately remove unauthorized advt. banners on PMC Electric poles/walls on sides of streets on the street mentioned at Gulmohar ",
+          0.7048
+        ],
+        [
+          "RMC Plant - Ashtech Pvt Ltd, Behind Jotiba Temple, Wadgaon Bk. is not having permit to operate from MPCB. Please close this immediately as its causing",
+          0.7041
+        ]
+      ]
+    },
+    "Unauthorized slaughterhouse / crude meat": {
+      "before_accuracy": 85.71,
+      "after_accuracy": 66.67,
+      "improvement": -19.05,
+      "before_avg_confidence": 0.7118,
+      "after_avg_confidence": 0.7222,
+      "feedback_samples": 102,
+      "test_samples": 105,
+      "similar_complaints": [
+        [
+          "Illegal and very unhygienic fishes and other meats are sold in hadapsar industrial area. the fishes are caught from the shinde vasti canals and just k",
+          0.6934
+        ],
+        [
+          "सदर ठिकाणी कोंढवा येथील कत्तलखान्यामध्ये जनावरांची कत्तल केल्यानंतर जे निरुपयोगी भाग राहतात ते तसेच आठ ते दहा दिवस तिथे पडून राहतात त्यामुळे त्याची दु",
+          0.7179
+        ],
+        [
+          "ताम्हाणे चौकात रस्त्या कडेला बोकड कापून फुटपाथवर मटण विक्री केली जात आहे\nName] Yd Secretary Vikram Gholap, Tejas Elysian Society, Baner\n[Mobile] 98903",
+          0.7127
+        ],
+        [
+          "Meat shop and chicken shop near the gate of Gera's Emerald City, Kalamkar Road, Baner. Please note my complaint and take urgent action.There is a chic",
+          0.7035
+        ],
+        [
+          "स्वप्नशिल्प सोसायटीतील रोहाऊस ला लागून जो नाला आहे व क्षेत्रिय कार्यालया ला लागून जो नाला आहे, त्याला लागून काही तथाकथित अनअधिकृत कोंबडी व मटण विकण्या",
+          0.9985
+        ]
+      ]
+    },
+    "Urban Poor Scheme": {
+      "before_accuracy": 70.37,
+      "after_accuracy": 100.0,
+      "improvement": 29.63,
+      "before_avg_confidence": 0.6325,
+      "after_avg_confidence": 0.7225,
+      "feedback_samples": 26,
+      "test_samples": 27,
+      "similar_complaints": [
+        [
+          "Piped gas pipeline has been installed many years ago in the premises but no gas supply has started.",
+          0.7035
+        ],
+        [
+          "आपणास सादर करण्यात येते की, माझी पत्नी सौ. प्रभा विलास अष्टेकर हिस दिनांक १७/०५/२०२४ ते २०/०५/२०२४ या कालावधीत “मेडीपॉईंट हॉस्पिटल, पुणे-अहिल्यानगर रस",
+          0.8253
+        ],
+        [
+          "ESCALATION - On this location - GAlli No 28, Svy number 61/1/2/3/2 Owner - Gajraj dhanpatsingh Baurasi  is using orange ration card and selling the ra",
+          0.7047
+        ],
+        [
+          "मी पुणे महानगरपालिका शहरी गरीब योजना अंतर्गत उपचार घेत असलेल्या एका रुग्णाचा नातेवाईक आहे. संबंधित रुग्णास डॉक्टरांच्या सल्ल्यानुसार आठवड्यातून ३ वेळा",
+          0.9956
+        ],
+        [
+          "Test Complaint - please reject",
+          0.301
+        ]
+      ]
+    },
+    "Vehicle department": {
+      "before_accuracy": 90.7,
+      "after_accuracy": 100.0,
+      "improvement": 9.3,
+      "before_avg_confidence": 0.7191,
+      "after_avg_confidence": 0.7053,
+      "feedback_samples": 126,
+      "test_samples": 129,
+      "similar_complaints": [
+        [
+          "mh12 xm1446 सदर ठिकाणी पुणे महानगरपालिकेची कचऱ्याची गाडी होती व ती नागरिक डाव्या बाजूला असतानाही उजव्या बाजूने येऊन डाव्या बाजूला कट मारून रस ड्रायविं",
+          0.7405
+        ],
+        [
+          "Since last more than 2 years around 5 City bus stops on Sus road are removed to replace with new one. Nothing happened. What PMC did with old bua stop",
+          0.7051
+        ],
+        [
+          "Do you allow your vehicles to jump the singles, he is endangering lives of people, please take some action.\n@PuneCityTraffic\n please issue challan.\nMH",
+          0.7042
+        ],
+        [
+          "सदर गाडी कचऱ्याचा असून दादागिरी करायला लागलो वैदवाडी मध्ये अमृता शेट्टी व दशावतार शाळाच्या शेजारी कृपया कारवाई करण्यात यावी मी स्वतः पत्रकार संजय शिंद",
+          0.709
+        ],
+        [
+          "As usual,  On PMC  Duty water tanker, wrong side driving, parking,  Wadgaon Sheri Road,  New Kalyani Nagar. \n\nMostly with illegal shrill sharp, pressu",
+          0.705
+        ]
+      ]
+    }
+  },
+  "summary": {
+    "overall_before_accuracy": 82.23,
+    "overall_after_accuracy": 93.81,
+    "total_feedback_samples": 2944,
+    "total_test_samples": 3044
+  }
+}

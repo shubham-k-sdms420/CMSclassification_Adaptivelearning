@@ -27,8 +27,8 @@ class AdaptiveClassifier:
             ngram_range=(1, 2),
             strip_accents="unicode",
             sublinear_tf=True,
-            min_df=2,
-            max_df=0.95,
+            min_df=1,  # Allow single occurrence for online learning
+            max_df=0.95,  # Will be adjusted dynamically for small initial batches
         )
         self.classifier = SGDClassifier(
             loss="modified_huber",
@@ -38,7 +38,9 @@ class AdaptiveClassifier:
             max_iter=1000,
             tol=1e-3,
             random_state=42,
-            class_weight="balanced",
+            # Note: class_weight="balanced" is not supported with partial_fit
+            # Using None (uniform weights) for online learning compatibility
+            class_weight=None,
             warm_start=True,
         )
         self.is_trained = False
@@ -64,6 +66,21 @@ class AdaptiveClassifier:
         if classes is not None:
             self.classes_ = list(classes)
         if not self.is_trained:
+            # For initial training, adjust vectorizer params to handle single-sample training
+            # max_df and min_df conflict when sample count is very low
+            n_samples = len(texts)
+            # When training with few samples (especially 1), we need relaxed parameters
+            if n_samples < 10:
+                # Create a new vectorizer with relaxed params for small sample training
+                self.vectorizer = TfidfVectorizer(
+                    max_features=5000,
+                    ngram_range=(1, 2),
+                    strip_accents="unicode",
+                    sublinear_tf=True,
+                    min_df=1,  # Allow single occurrence
+                    max_df=1.0,  # Don't filter by max_df for small samples (1.0 = 100%)
+                )
+            # Now fit_transform with the (possibly adjusted) vectorizer
             X = self.vectorizer.fit_transform(texts)
             if self.classes_ is None:
                 self.classes_ = list(sorted(set(labels)))
@@ -71,7 +88,10 @@ class AdaptiveClassifier:
             self.is_trained = True
         else:
             X = self.vectorizer.transform(texts)
-            self.classifier.partial_fit(X, labels)
+            # Always pass classes parameter to avoid errors with unseen labels
+            if self.classes_ is None:
+                raise ValueError("classes_ must be set when classifier is trained")
+            self.classifier.partial_fit(X, labels, classes=self.classes_)
         logger.debug("Updated adaptive classifier with %d new examples", len(texts))
 
     def predict(self, texts: List[str]) -> List[str]:
