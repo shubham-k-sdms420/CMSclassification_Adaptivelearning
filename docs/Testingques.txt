@@ -19,8 +19,3 @@ Low Confidence Complaints:
 6.Illegal activity in the area. Need immediate action.
 7.School side problem. Children are suffering.
 8.my mobile network is too low data is not working do something please
-
-
-cd "/home/stark/Desktop/Adaptive Learning/Testing"
-export GEMINI_API_KEY=AIzaSyBDDMwvA_IM_5_0SONZmSsD-YMP5JRpgmo
-python3 generate_synthetic_complaints_gemini.py
