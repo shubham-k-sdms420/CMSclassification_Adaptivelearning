@@ -35,14 +35,22 @@ cp /home/stark/CMS_v2/category_to_id.json ./label2id.json
 
 ---
 
-## What to provide from Google Drive
+## Download Model Files from Google Drive
 
-After training on Colab you have a `trained_model` folder on Drive containing:
+**Download the model files from [Google Drive](https://drive.google.com/drive/folders/1qA-Sg2pVO9TXpux_LRNsJ-gVYbksNnGS?usp=sharing):**
 
-- **`model/`** — folder with the saved model and tokenizer  
-- **`pmc_model.zip`** — (optional) archive of the same model
+- **`model.safetensors`** (2.09 GB) - Transformer model weights
+- **`adaptive_classifier.pkl`** (298 KB) - Pre-trained adaptive classifier (optional)
 
-You need to **download the contents of the `model` folder** (or unzip `pmc_model.zip` so you get the same structure) and place them in this repo’s **`model/`** directory before building/running.
+After downloading, place these files in `CMS_RoBerta/model/` directory:
+
+```bash
+# Example: After downloading, move files to the model directory
+cp ~/Downloads/model.safetensors CMS_RoBerta/model/
+cp ~/Downloads/adaptive_classifier.pkl CMS_RoBerta/model/  # Optional
+```
+
+**Note:** The `adaptive_classifier.pkl` file is optional—it will be created automatically when you first use the `/feedback` endpoint. However, if you download the pre-trained version, it will start with better initial performance.
 
 ### Required files inside `model/`
 
