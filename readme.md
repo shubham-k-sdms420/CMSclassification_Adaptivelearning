@@ -194,7 +194,9 @@ For detailed scenarios and examples, see **`docs/working-of-the-system.md`**.
 ## Prerequisites
 
 - **Python 3.8 or newer** (to run the API).
-- **Model weights** in `CMS_RoBerta/model/`: the repo does not include the large AI weight file (`model.safetensors`). You must add it before running (see **`CMS_RoBerta/README.md`** for where to get it and how to set up).
+- **Model files**: Download the model files from [Google Drive](https://drive.google.com/drive/folders/1qA-Sg2pVO9TXpux_LRNsJ-gVYbksNnGS?usp=sharing) and place them in `CMS_RoBerta/model/`:
+  - `model.safetensors` (2.09 GB) - Transformer model weights
+  - `adaptive_classifier.pkl` (298 KB) - Pre-trained adaptive classifier (optional, will be created automatically if missing)
 - For **Docker** deployment: Docker installed and the model files available (e.g. mounted or copied into the image).
 
 ---
@@ -207,9 +209,20 @@ For detailed scenarios and examples, see **`docs/working-of-the-system.md`**.
 pip install -r requirements.txt
 ```
 
-### 2. Add model weights (if not already done)
+### 2. Download and add model files
 
-Place the model weight file (`model.safetensors` or `pytorch_model.bin`) in `CMS_RoBerta/model/`. See **`CMS_RoBerta/README.md`** for details.
+1. Download the model files from [Google Drive](https://drive.google.com/drive/folders/1qA-Sg2pVO9TXpux_LRNsJ-gVYbksNnGS?usp=sharing):
+   - `model.safetensors` (2.09 GB) - Transformer model weights
+   - `adaptive_classifier.pkl` (298 KB) - Pre-trained adaptive classifier (optional)
+
+2. Place the downloaded files in `CMS_RoBerta/model/` directory:
+   ```bash
+   # Example: After downloading, move files to the model directory
+   cp ~/Downloads/model.safetensors CMS_RoBerta/model/
+   cp ~/Downloads/adaptive_classifier.pkl CMS_RoBerta/model/  # Optional
+   ```
+
+**Note:** The `adaptive_classifier.pkl` file is optional—it will be created automatically when you first use the `/feedback` endpoint. However, if you download the pre-trained version, it will start with better initial performance.
 
 ### 3. Start the CMS_RoBerta API
 
