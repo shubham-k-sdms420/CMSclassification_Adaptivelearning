@@ -5,7 +5,7 @@ FastAPI service that serves the fine-tuned **XLM-RoBERTa-Large** (Stage 2) compl
 - **Good confidence > 80%** → **Accept** (use prediction; no human review).
 - **Low confidence ≤ 80%** → **Human feedback** (queue for review; human selects category; system learns via `/feedback`).
 
-Runs  on **port 5015** and is intended for deployment on your company server via Docker.
+Runs  on **port 5016** and is intended for deployment on your company server via Docker.
 
 ---
 
@@ -102,12 +102,12 @@ Either copy the entire **`trained_model/model`** folder contents into **`model/`
    docker build -t cms-classification-api .
    ```
 
-3. **Run the container** (mount the model, expose port 5015):
+3. **Run the container** (mount the model, expose port 5016):
 
    ```bash
    docker run -d \
      --name cms-classification \
-     -p 5015:5015 \
+     -p 5016:5016 \
      -v "$(pwd)/model:/app/model:ro" \
      cms-classification-api
    ```
@@ -117,7 +117,7 @@ Either copy the entire **`trained_model/model`** folder contents into **`model/`
    ```bash
    docker run -d \
      --name cms-classification \
-     -p 5015:5015 \
+     -p 5016:5016 \
      -v /opt/cms/model:/app/model:ro \
      cms-classification-api
    ```
@@ -125,7 +125,7 @@ Either copy the entire **`trained_model/model`** folder contents into **`model/`
 4. **Check health:**
 
    ```bash
-   curl http://localhost:5015/health
+   curl http://localhost:5016/health
    ```
 
 ---
@@ -143,7 +143,7 @@ Either copy the entire **`trained_model/model`** folder contents into **`model/`
 ### Example: single classification
 
 ```bash
-curl -X POST http://localhost:5015/classify \
+curl -X POST http://localhost:5016/classify \
   -H "Content-Type: application/json" \
   -d '{"text": "Illegal construction noise after 10 PM near my society."}'
 ```
@@ -159,7 +159,7 @@ Use `routing`: **`accept`** (good confidence >80%) or **`human_feedback`** (low 
 With probabilities:
 
 ```bash
-curl -X POST http://localhost:5015/classify \
+curl -X POST http://localhost:5016/classify \
   -H "Content-Type: application/json" \
   -d '{"text": "Road potholes near main market.", "return_probabilities": true}'
 ```
@@ -167,7 +167,7 @@ curl -X POST http://localhost:5015/classify \
 ### Example: batch classification
 
 ```bash
-curl -X POST http://localhost:5015/classify/batch \
+curl -X POST http://localhost:5016/classify/batch \
   -H "Content-Type: application/json" \
   -d '{"texts": ["Complaint one...", "Complaint two..."], "return_probabilities": false}'
 ```
@@ -177,7 +177,7 @@ curl -X POST http://localhost:5015/classify/batch \
 When `routing` is `human_feedback`, have a human choose the correct category, then:
 
 ```bash
-curl -X POST http://localhost:5015/feedback \
+curl -X POST http://localhost:5016/feedback \
   -H "Content-Type: application/json" \
   -d '{"complaint_text": "Road potholes near main market.", "correct_category": "Road, pavement, divider, pits, repair / new speed breaker / zebra crossing"}'
 ```
@@ -193,7 +193,7 @@ From the `CMS Classification model` directory:
 ```bash
 pip install -r requirements.txt
 # Ensure model files are in ./model/
-python -m uvicorn app.main:app --host 0.0.0.0 --port 5015
+python -m uvicorn app.main:app --host 0.0.0.0 --port 5016
 ```
 
 Or:

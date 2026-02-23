@@ -1,7 +1,7 @@
 # CMS Complaint Classification API Documentation
 
 **Version:** 1.0.0  
-**Base URL:** `http://localhost:5015` (development) or your deployed server URL  
+**Base URL:** `http://localhost:5016` (development) or your deployed server URL  
 **Content-Type:** `application/json`
 
 ## Overview
@@ -26,33 +26,33 @@ Currently, the API does not require authentication. For production deployments, 
 
 ## Complete Endpoint List
 
-All endpoints are available at the base URL: `http://localhost:5015` (replace with your server URL in production)
+All endpoints are available at the base URL: `http://localhost:5016` (replace with your server URL in production)
 
 | Method | Complete Endpoint URL | Description |
 |--------|----------------------|-------------|
-| `GET` | `http://localhost:5015/health` | Health check and model status |
-| `GET` | `http://localhost:5015/labels` | List all 78 available category labels |
-| `POST` | `http://localhost:5015/classify` | Classify a single complaint |
-| `POST` | `http://localhost:5015/classify/batch` | Classify multiple complaints in batch |
-| `POST` | `http://localhost:5015/feedback` | Submit human feedback to update adaptive classifier |
-| `GET` | `http://localhost:5015/ui` | Access interactive web UI |
-| `GET` | `http://localhost:5015/docs` | Swagger UI interactive API documentation |
-| `GET` | `http://localhost:5015/redoc` | ReDoc API documentation |
+| `GET` | `http://localhost:5016/health` | Health check and model status |
+| `GET` | `http://localhost:5016/labels` | List all 78 available category labels |
+| `POST` | `http://localhost:5016/classify` | Classify a single complaint |
+| `POST` | `http://localhost:5016/classify/batch` | Classify multiple complaints in batch |
+| `POST` | `http://localhost:5016/feedback` | Submit human feedback to update adaptive classifier |
+| `GET` | `http://localhost:5016/ui` | Access interactive web UI |
+| `GET` | `http://localhost:5016/docs` | Swagger UI interactive API documentation |
+| `GET` | `http://localhost:5016/redoc` | ReDoc API documentation |
 
 ### Quick Reference - Complete Endpoints
 
 ```
-GET    http://localhost:5015/health
-GET    http://localhost:5015/labels
-POST   http://localhost:5015/classify
-POST   http://localhost:5015/classify/batch
-POST   http://localhost:5015/feedback
-GET    http://localhost:5015/ui
-GET    http://localhost:5015/docs
-GET    http://localhost:5015/redoc
+GET    http://localhost:5016/health
+GET    http://localhost:5016/labels
+POST   http://localhost:5016/classify
+POST   http://localhost:5016/classify/batch
+POST   http://localhost:5016/feedback
+GET    http://localhost:5016/ui
+GET    http://localhost:5016/docs
+GET    http://localhost:5016/redoc
 ```
 
-**Note:** Replace `localhost:5015` with your actual server URL in production (e.g., `https://api.yourdomain.com`).
+**Note:** Replace `localhost:5016` with your actual server URL in production (e.g., `https://api.yourdomain.com`).
 
 ---
 
@@ -62,7 +62,7 @@ GET    http://localhost:5015/redoc
 
 Check if the API is running and the model is loaded.
 
-**Complete Endpoint:** `GET http://localhost:5015/health`  
+**Complete Endpoint:** `GET http://localhost:5016/health`  
 **Endpoint Path:** `/health`
 
 **Response:**
@@ -75,7 +75,7 @@ Check if the API is running and the model is loaded.
 
 **Example:**
 ```bash
-curl http://localhost:5015/health
+curl http://localhost:5016/health
 ```
 
 **Response Codes:**
@@ -88,7 +88,7 @@ curl http://localhost:5015/health
 
 Get the list of all 78 possible classification categories.
 
-**Complete Endpoint:** `GET http://localhost:5015/labels`  
+**Complete Endpoint:** `GET http://localhost:5016/labels`  
 **Endpoint Path:** `/labels`
 
 **Response:**
@@ -105,7 +105,7 @@ Get the list of all 78 possible classification categories.
 
 **Example:**
 ```bash
-curl http://localhost:5015/labels
+curl http://localhost:5016/labels
 ```
 
 **Response Codes:**
@@ -118,7 +118,7 @@ curl http://localhost:5015/labels
 
 Classify a single complaint text and get prediction with confidence and routing decision.
 
-**Complete Endpoint:** `POST http://localhost:5015/classify`  
+**Complete Endpoint:** `POST http://localhost:5016/classify`  
 **Endpoint Path:** `/classify`
 
 **Request Body:**
@@ -172,7 +172,7 @@ Classify a single complaint text and get prediction with confidence and routing 
 
 **Example with cURL:**
 ```bash
-curl -X POST http://localhost:5015/classify \
+curl -X POST http://localhost:5016/classify \
   -H "Content-Type: application/json" \
   -d '{
     "text": "Street light not working near my house",
@@ -182,7 +182,7 @@ curl -X POST http://localhost:5015/classify \
 
 **Example with probabilities:**
 ```bash
-curl -X POST http://localhost:5015/classify \
+curl -X POST http://localhost:5016/classify \
   -H "Content-Type: application/json" \
   -d '{
     "text": "Drainage water overflowing on the road",
@@ -218,7 +218,7 @@ curl -X POST http://localhost:5015/classify \
 
 Classify multiple complaints in a single request.
 
-**Complete Endpoint:** `POST http://localhost:5015/classify/batch`  
+**Complete Endpoint:** `POST http://localhost:5016/classify/batch`  
 **Endpoint Path:** `/classify/batch`
 
 **Request Body:**
@@ -265,7 +265,7 @@ Classify multiple complaints in a single request.
 
 **Example:**
 ```bash
-curl -X POST http://localhost:5015/classify/batch \
+curl -X POST http://localhost:5016/classify/batch \
   -H "Content-Type: application/json" \
   -d '{
     "texts": [
@@ -289,7 +289,7 @@ curl -X POST http://localhost:5015/classify/batch \
 
 Submit human correction for a low-confidence prediction. This updates the adaptive classifier and improves future predictions.
 
-**Complete Endpoint:** `POST http://localhost:5015/feedback`  
+**Complete Endpoint:** `POST http://localhost:5016/feedback`  
 **Endpoint Path:** `/feedback`
 
 **Request Body:**
@@ -314,7 +314,7 @@ Submit human correction for a low-confidence prediction. This updates the adapti
 
 **Example:**
 ```bash
-curl -X POST http://localhost:5015/feedback \
+curl -X POST http://localhost:5016/feedback \
   -H "Content-Type: application/json" \
   -d '{
     "complaint_text": "Street light not working",
@@ -339,13 +339,13 @@ curl -X POST http://localhost:5015/feedback \
 
 Access the interactive web UI for testing and visualization.
 
-**Complete Endpoint:** `GET http://localhost:5015/ui`  
+**Complete Endpoint:** `GET http://localhost:5016/ui`  
 **Endpoint Path:** `/ui`
 
 **Response:** HTML page with interactive UI
 
 **Example:**
-Open in browser: `http://localhost:5015/ui`
+Open in browser: `http://localhost:5016/ui`
 
 **Features:**
 - Single complaint classification
@@ -434,7 +434,7 @@ Currently, there are no rate limits enforced. For production deployments, consid
 ```python
 import requests
 
-BASE_URL = "http://localhost:5015"
+BASE_URL = "http://localhost:5016"
 
 # Check health
 response = requests.get(f"{BASE_URL}/health")
@@ -477,7 +477,7 @@ if result["routing"] == "human_feedback":
 ```javascript
 const axios = require('axios');
 
-const BASE_URL = 'http://localhost:5015';
+const BASE_URL = 'http://localhost:5016';
 
 async function classifyComplaint(text) {
   try {
@@ -523,7 +523,7 @@ classifyComplaint('Street light not working near my house');
 ```bash
 #!/bin/bash
 
-BASE_URL="http://localhost:5015"
+BASE_URL="http://localhost:5016"
 
 # Health check
 curl -X GET "$BASE_URL/health"
@@ -561,7 +561,7 @@ curl -X POST "$BASE_URL/feedback" \
 
 FastAPI automatically generates interactive API documentation with Swagger UI.
 
-**Complete Endpoint:** `GET http://localhost:5015/docs`  
+**Complete Endpoint:** `GET http://localhost:5016/docs`  
 **Endpoint Path:** `/docs`
 
 **Features:**
@@ -575,7 +575,7 @@ FastAPI automatically generates interactive API documentation with Swagger UI.
 
 Alternative API documentation interface.
 
-**Complete Endpoint:** `GET http://localhost:5015/redoc`  
+**Complete Endpoint:** `GET http://localhost:5016/redoc`  
 **Endpoint Path:** `/redoc`
 
 **Features:**
@@ -591,7 +591,7 @@ For issues or questions:
 1. Check server logs for detailed error messages
 2. Verify model files are present in `CMS_RoBerta/model/`
 3. Ensure all dependencies are installed (`pip install -r requirements.txt`)
-4. Check that port 5015 is not already in use
+4. Check that port 5016 is not already in use
 
 ---
 

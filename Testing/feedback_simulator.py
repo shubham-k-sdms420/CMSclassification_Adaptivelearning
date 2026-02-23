@@ -12,7 +12,7 @@ This script simulates the online learning feedback loop by:
 This tests the incremental learning capability without manual UI interaction.
 
 Usage:
-    python feedback_simulator.py --api-url http://localhost:5015 --csv training_samples_sgd_7800.csv
+    python feedback_simulator.py --api-url http://localhost:5016 --csv training_samples_sgd_7800.csv
 """
 
 import argparse
@@ -638,8 +638,8 @@ def main():
     parser.add_argument(
         "--api-url",
         type=str,
-        default="http://localhost:5015",
-        help="API base URL (default: http://localhost:5015)",
+        default="http://localhost:5016",
+        help="API base URL (default: http://localhost:5016)",
     )
     parser.add_argument(
         "--csv", type=str, required=True, help="Path to CSV with training data"

@@ -16,7 +16,7 @@ This project is an AI-powered system for **Pune Municipal Corporation (PMC)**. W
 | [Download SGD classifier model](#download-sgd-classifier-model)    | Setting up the learnt adaptive model      |
 | [Quick start](#quick-start)                                        | Run the API and try it                    |
 | [Current accuracy &amp; retraining](#current-accuracy--retraining) | Model performance and how it is retrained |
-| [API reference](#api-reference-cms_roberta--port-5015)             | Endpoints and examples                    |
+| [API reference](#api-reference-cms_roberta--port-5016)             | Endpoints and examples                    |
 | [Troubleshooting](#troubleshooting)                                | Common issues and fixes                   |
 
 ---
@@ -27,7 +27,7 @@ This project is an AI-powered system for **Pune Municipal Corporation (PMC)**. W
 - **Why it matters:** Speeds up complaint routing, keeps categories consistent, and reduces manual work while letting staff correct and teach the system.
 - **How it learns:** When a human picks the correct category for an uncertain complaint, that correction updates the **adaptive (SGD) classifier** only. The main transformer (RoBERTa) is not retrained.
 
-The live system is the **CMS_RoBerta API** (port **5015**): a fixed multilingual transformer plus a lightweight SGD classifier that learns from feedback. See **`CMS_RoBerta/README.md`** for service setup.
+The live system is the **CMS_RoBerta API** (port **5016**): a fixed multilingual transformer plus a lightweight SGD classifier that learns from feedback. See **`CMS_RoBerta/README.md`** for service setup.
 
 ---
 
@@ -38,7 +38,7 @@ The live system is the **CMS_RoBerta API** (port **5015**): a fixed multilingual
 - **Confidence-based routing:** High confidence → accept; low → human feedback, then learn from correction.
 - **Adaptive learning:** Improves from human corrections without full model retraining.
 - **REST API:** `/classify`, `/classify/batch`, `/feedback`.
-- **Web UI:** `http://localhost:5015/ui` for testing and feedback.
+- **Web UI:** `http://localhost:5016/ui` for testing and feedback.
 
 ---
 
@@ -111,13 +111,46 @@ pip install -r requirements.txt
 From the project root:
 
 ```bash
-python3 -m uvicorn CMS_RoBerta.app.main:app --host 0.0.0.0 --port 5015
+python3 -m uvicorn CMS_RoBerta.app.main:app --host 0.0.0.0 --port 5016
 ```
 
 ### 4. Try it
 
-- **Classify:**`curl -X POST http://localhost:5015/classify -H "Content-Type: application/json" -d '{"text": "Street light not working near my house"}'`
-- **Web UI:** open **http://localhost:5015/ui**
+- **Classify:**`curl -X POST http://localhost:5016/classify -H "Content-Type: application/json" -d '{"text": "Street light not working near my house"}'`
+- **Web UI:** open **http://localhost:5016/ui**
+
+---
+
+## Run with Docker
+
+Run the API in a container so you don’t need to install Python or dependencies on the host.
+
+**1. Put model files on the host**  
+Ensure **`CMS_RoBerta/model/`** contains the required files (see [Quick start](#quick-start)): transformer files from [Google Drive](https://drive.google.com/drive/folders/1qA-Sg2pVO9TXpux_LRNsJ-gVYbksNnGS?usp=sharing), and **adaptive_classifier.pkl** from [Google Drive](https://drive.google.com/file/d/10bwLoCl8lQgqHnxbkzuLtXJe3rdJ74L0/view?usp=sharing). The container mounts this folder, so the same files are used and feedback updates are saved on the host.
+
+**2. Build and run** (from project root `Adaptive Learning/`):
+
+```bash
+docker compose up --build
+# Or in background:
+docker compose up -d --build
+```
+
+API: **http://localhost:5016** — UI: http://localhost:5016/ui — Health: http://localhost:5016/health
+
+**3. Optional (without Compose):**
+
+```bash
+docker build -t cms-roberta-api:latest .
+docker run -d --name cms-complaint-classifier -p 5016:5016 \
+  -v $(pwd)/CMS_RoBerta/model:/app/CMS_RoBerta/model \
+  -e MODEL_DIR=/app/CMS_RoBerta/model \
+  cms-roberta-api:latest
+```
+
+**4. Stop / logs:** `docker compose down` | `docker compose logs -f`
+
+See **`DOCKER.md`** for more detail.
 
 ---
 
@@ -144,7 +177,7 @@ Steps and commands for retraining and improving accuracy (full run, weak-only ru
 
 ---
 
-## API reference (CMS_RoBerta — port 5015)
+## API reference (CMS_RoBerta — port 5016)
 
 ### POST /classify
 
@@ -206,7 +239,7 @@ Serves the web UI for classification and feedback.
 ```
 ├── requirements.txt
 ├── readme.md                     # This file
-├── CMS_RoBerta/                  # Classification API (port 5015)
+├── CMS_RoBerta/                  # Classification API (port 5016)
 │   ├── app/
 │   │   ├── main.py               # FastAPI: /classify, /classify/batch, /feedback
 │   │   ├── ensemble.py           # RoBERTa + SGD ensemble
@@ -234,7 +267,7 @@ Serves the web UI for classification and feedback.
 - **Model not loaded:** Ensure `CMS_RoBerta/model/` has the transformer files (config, tokenizer, `label2id.json`, weights). Add **adaptive_classifier.pkl** from [Google Drive](https://drive.google.com/file/d/10bwLoCl8lQgqHnxbkzuLtXJe3rdJ74L0/view?usp=sharing) to the same folder.
 - **UI not found:** Run the server from the project root so `CMS_RoBerta/app/ui.html` is found.
 - **Low confidence:** The adaptive classifier may be untrained. Use the downloaded **adaptive_classifier.pkl** or submit feedback via `/feedback` (or run the Testing feedback simulator).
-- **Port in use:** Check port 5015: `lsof -i :5015`.
+- **Port in use:** Check port 5016: `lsof -i :5016`.
 
 ---
 

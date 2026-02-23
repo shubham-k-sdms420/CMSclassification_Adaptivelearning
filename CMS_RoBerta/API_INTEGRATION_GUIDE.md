@@ -59,20 +59,20 @@ The **CMS Complaint Classification API** is an AI-powered service that automatic
 
 | Environment | Base URL |
 |-------------|----------|
-| **Production** | `http://34.227.36.59:5015` |
+| **Production** | `http://34.227.36.59:5016` |
 
 All endpoint paths documented below are relative to this base URL.
 
 **Example:** To call the health endpoint, the full URL is:
 ```
-http://34.227.36.59:5015/health
+http://34.227.36.59:5016/health
 ```
 
 ### Interactive API Documentation (Swagger UI)
 
 A built-in interactive API explorer is available at:
 ```
-http://34.227.36.59:5015/docs
+http://34.227.36.59:5016/docs
 ```
 
 You can test all endpoints directly from the browser using this interface.
@@ -117,7 +117,7 @@ Check whether the API service and the ML model are running and ready to accept r
 #### Request
 
 ```
-GET http://34.227.36.59:5015/health
+GET http://34.227.36.59:5016/health
 ```
 
 No request body or parameters required.
@@ -151,7 +151,7 @@ Retrieve the complete list of all 78 classification category labels that the mod
 #### Request
 
 ```
-GET http://34.227.36.59:5015/labels
+GET http://34.227.36.59:5016/labels
 ```
 
 No request body or parameters required.
@@ -192,7 +192,7 @@ Classify a single complaint text and get the predicted department/category.
 #### Request
 
 ```
-POST http://34.227.36.59:5015/classify
+POST http://34.227.36.59:5016/classify
 Content-Type: application/json
 ```
 
@@ -271,7 +271,7 @@ Classify multiple complaint texts in a single request. Useful for bulk processin
 #### Request
 
 ```
-POST http://34.227.36.59:5015/classify/batch
+POST http://34.227.36.59:5016/classify/batch
 Content-Type: application/json
 ```
 
@@ -463,7 +463,7 @@ For `503` and `500` errors, implement a simple retry with exponential backoff:
 **Single complaint classification:**
 
 ```bash
-curl -X POST http://34.227.36.59:5015/classify \
+curl -X POST http://34.227.36.59:5016/classify \
   -H "Content-Type: application/json" \
   -d '{
     "text": "Water supply not available since 2 days in Kothrud area",
@@ -474,7 +474,7 @@ curl -X POST http://34.227.36.59:5015/classify \
 **Batch classification:**
 
 ```bash
-curl -X POST http://34.227.36.59:5015/classify/batch \
+curl -X POST http://34.227.36.59:5016/classify/batch \
   -H "Content-Type: application/json" \
   -d '{
     "texts": [
@@ -489,13 +489,13 @@ curl -X POST http://34.227.36.59:5015/classify/batch \
 **Health check:**
 
 ```bash
-curl http://34.227.36.59:5015/health
+curl http://34.227.36.59:5016/health
 ```
 
 **Get all labels:**
 
 ```bash
-curl http://34.227.36.59:5015/labels
+curl http://34.227.36.59:5016/labels
 ```
 
 ---
@@ -505,7 +505,7 @@ curl http://34.227.36.59:5015/labels
 ```python
 import requests
 
-BASE_URL = "http://34.227.36.59:5015"
+BASE_URL = "http://34.227.36.59:5016"
 
 # --- Single Complaint Classification ---
 def classify_complaint(text, return_probabilities=False):
@@ -576,7 +576,7 @@ print(f"Total categories: {len(labels)}")
 ### 7.3 JavaScript / Node.js
 
 ```javascript
-const BASE_URL = "http://34.227.36.59:5015";
+const BASE_URL = "http://34.227.36.59:5016";
 
 // --- Single Complaint Classification ---
 async function classifyComplaint(text, returnProbabilities = false) {
@@ -660,7 +660,7 @@ public class CmsClassificationClient
     private readonly HttpClient _client;
     private readonly string _baseUrl;
 
-    public CmsClassificationClient(string baseUrl = "http://34.227.36.59:5015")
+    public CmsClassificationClient(string baseUrl = "http://34.227.36.59:5016")
     {
         _client = new HttpClient();
         _baseUrl = baseUrl;
@@ -741,7 +741,7 @@ public class CmsClassificationClient {
     private final String baseUrl;
 
     public CmsClassificationClient() {
-        this("http://34.227.36.59:5015");
+        this("http://34.227.36.59:5016");
     }
 
     public CmsClassificationClient(String baseUrl) {
@@ -883,7 +883,7 @@ For any issues or questions regarding this API, please contact the AI/ML team:
 |---------|---------|
 | Team | AI/ML Development Team |
 | Email | *(to be updated)* |
-| Swagger Docs | http://34.227.36.59:5015/docs |
+| Swagger Docs | http://34.227.36.59:5016/docs |
 
 ---
 

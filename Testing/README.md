@@ -27,7 +27,7 @@ Guides (e.g. `ACCURACY_93_PERCENT_GUIDE.md`, `WEAK_ONLY_TRAINING.md`, `RECOMMEND
 - **Command (with category mapping):**
   ```bash
   python feedback_simulator.py \
-    --api-url http://localhost:5015 \
+    --api-url http://localhost:5016 \
     --csv training_samples_sgd_7800.csv \
     --category-map category_mapping.csv \
     --batch-size 10 --delay 0.1
@@ -48,7 +48,7 @@ Guides (e.g. `ACCURACY_93_PERCENT_GUIDE.md`, `WEAK_ONLY_TRAINING.md`, `RECOMMEND
 - **Command:**
   ```bash
   python feedback_simulator.py \
-    --api-url http://localhost:5015 \
+    --api-url http://localhost:5016 \
     --csv training_samples_sgd_7800.csv \
     --category-map category_mapping.csv \
     --categories-file weak_categories.txt \
@@ -82,7 +82,7 @@ Details and formula are in **reports/updated_overall_accuracy.md**.
 
 ## Prerequisites
 
-- API running (e.g. `uvicorn CMS_RoBerta.app.main:app --host 0.0.0.0 --port 5015`).
+- API running (e.g. `uvicorn CMS_RoBerta.app.main:app --host 0.0.0.0 --port 5016`).
 - Python with: `requests`, `pandas`, `numpy`, `matplotlib`, `tqdm`.
 
 ---
@@ -91,13 +91,13 @@ Details and formula are in **reports/updated_overall_accuracy.md**.
 
 **Full run (all 7,800, with mapping):**
 ```bash
-python feedback_simulator.py --api-url http://localhost:5015 \
+python feedback_simulator.py --api-url http://localhost:5016 \
   --csv training_samples_sgd_7800.csv --category-map category_mapping.csv
 ```
 
 **Weak-only run (20 categories, 2,000 rows):**
 ```bash
-python feedback_simulator.py --api-url http://localhost:5015 \
+python feedback_simulator.py --api-url http://localhost:5016 \
   --csv training_samples_sgd_7800.csv --category-map category_mapping.csv \
   --categories-file weak_categories.txt --feedback-all
 ```

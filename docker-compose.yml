@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: cms-complaint-classifier
     ports:
-      - "5015:5015"
+      - "5016:5016"
     volumes:
       # Mount model directory so model files persist and can be updated
       - ./CMS_RoBerta/model:/app/CMS_RoBerta/model
@@ -14,7 +14,7 @@ services:
       - PYTHONUNBUFFERED=1
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5015/health')"]
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:5016/health')"]
       interval: 30s
       timeout: 10s
       retries: 3

@@ -3,7 +3,7 @@ CMS Complaint Classification API — FastAPI service for XLM-RoBERTa complaint c
 with hybrid ensemble (transformer + adaptive SGDClassifier). Two-case routing:
   - Good confidence > 80% -> Accept
   - Low confidence <= 80% -> Human feedback
-Serves on port 5015. Loads model from MODEL_DIR (default: ../model).
+Serves on port 5016. Loads model from MODEL_DIR (default: ../model).
 """
 import json
 import os
@@ -352,4 +352,4 @@ def feedback_batch(req: BatchFeedbackRequest):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=5015)
+    uvicorn.run(app, host="0.0.0.0", port=5016)
