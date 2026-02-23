@@ -102,11 +102,34 @@ class AdaptiveClassifier:
         return self.classifier.predict(X).tolist()
 
     def predict_proba(self, texts: List[str]) -> np.ndarray:
-        """Return probability estimates per class (for confidence)."""
+        """Return probability estimates per class (for confidence).
+        
+        Handles both classifiers with predict_proba (modified_huber) and
+        those without (hinge) by using decision_function + softmax.
+        """
         if not self.is_trained:
             raise ValueError("Adaptive classifier not trained yet")
         X = self.vectorizer.transform(texts)
-        return self.classifier.predict_proba(X)
+        
+        # Try predict_proba first (works for modified_huber, log_loss, etc.)
+        try:
+            return self.classifier.predict_proba(X)
+        except AttributeError:
+            # Fallback for hinge loss: use decision_function + softmax
+            logger.debug("predict_proba not available, using decision_function + softmax")
+            decision_scores = self.classifier.decision_function(X)
+            
+            # Handle both binary and multiclass cases
+            if decision_scores.ndim == 1:
+                # Binary classification: convert to 2D array
+                decision_scores = np.column_stack([-decision_scores, decision_scores])
+            
+            # Apply softmax to convert scores to probabilities
+            # Subtract max for numerical stability
+            exp_scores = np.exp(decision_scores - decision_scores.max(axis=1, keepdims=True))
+            probas = exp_scores / exp_scores.sum(axis=1, keepdims=True)
+            
+            return probas
 
     def save(self, path: Path) -> None:
         """Persist classifier and vectorizer to disk."""

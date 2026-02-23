@@ -140,6 +140,10 @@ Classify a single complaint text and get prediction with confidence and routing 
   "label_id": 42,
   "confidence": 0.92,
   "routing": "accept",
+  "complaint_hash": "a1b2c3...",
+  "needs_feedback": false,
+  "already_learned": false,
+  "previous_corrected_category": null,
   "transformer_label": "Street Lights",
   "transformer_confidence": 0.94,
   "adaptive_label": "Street Lights",
@@ -149,16 +153,22 @@ Classify a single complaint text and get prediction with confidence and routing 
 ```
 
 **Response Fields:**
-- `label` (string): Final predicted category
+- `label` (string): Final predicted category (or previous corrected category when `already_learned` is true)
 - `label_id` (integer): Numeric ID of the predicted category
 - `confidence` (float, 0-1): Final ensemble confidence score
-- `routing` (string): `"accept"` if confidence > 80%, `"human_feedback"` if ≤ 80%
+- `routing` (string): `"accept"` if confidence > 80% or RoBERTa confidence ≥ 80%, `"human_feedback"` if ≤ 80%
+- `complaint_hash` (string, optional): Hash of complaint text (for use with feedback)
+- `needs_feedback` (boolean): True if UI should show feedback form (routing is human_feedback and not already learned)
+- `already_learned` (boolean): True if we already have feedback for this exact complaint
+- `previous_corrected_category` (string, optional): When already_learned is true, the category previously submitted
 - `transformer_label` (string): XLM-RoBERTa predicted category
 - `transformer_confidence` (float, 0-1): XLM-RoBERTa confidence
 - `adaptive_label` (string): SGD classifier predicted category
 - `adaptive_confidence` (float, 0-1): SGD classifier confidence
 - `agreement` (boolean): `true` if both models predicted the same category
 - `probabilities` (object, optional): Probability distribution if `return_probabilities=true`
+
+**Routing:** If RoBERTa confidence ≥ 80%, the system returns routing "accept" and uses RoBERTa's prediction.
 
 **Example with cURL:**
 ```bash

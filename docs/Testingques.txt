@@ -11,11 +11,11 @@ High confidence Complaints :
 10.Birth certificate application pending for two months. Need urgently.
 
 Low Confidence Complaints:
-1.Problem at ward 12 near the temple. Please look into it.
-2.Complaint about the office. They are not listening.
-3.Problem with papers. Submitted last month. No update.
+1.Problem at ward 12 near the temple. Please look into it. General Administration	
+2.Complaint about the office. They are not listening.  General Administration	
+3.Problem with papers. Submitted last month. No update. General Administration	
 4.Noise from the building work. Day and night.
-5.Certificate needed. Applied long back. Where is it?
-6.Illegal activity in the area. Need immediate action.
-7.School side problem. Children are suffering.
-8.my mobile network is too low data is not working do something please
+5.Certificate needed. Applied long back. Where is it? General Administration	
+6.Illegal activity in the area. Need immediate action. PMC Security Complaints	
+7.School side problem. Children are suffering. Primary Education	
+8.my mobile network is too low data is not working do something please Information Technology	

@@ -137,9 +137,10 @@ Citizen submits complaint text
 
 - It **updates only the SGD classifier** with this (complaint text, correct category) pair.
 - The RoBERTa model is **not** changed.
-- The updated SGD classifier is **saved** (e.g. to `adaptive_classifier.pkl`) so the learning is kept for the next time the server runs.
+- The correction is **stored** (e.g. in `CMS_RoBerta/model/feedback.db`) so the system knows this complaint was already learned.
+- The updated SGD classifier is **saved** to `CMS_RoBerta/model/adaptive_classifier.pkl` so the learning is kept for the next time the server runs.
 
-**In short:** Human correction is used to **teach the SGD model** so that similar complaints can be handled better in the future.
+**In short:** Human correction is used to **teach the SGD model** so that similar complaints can be handled better in the future. If the **same complaint text** is submitted again, the system will **not** ask for feedback again; it will show the previously corrected category and `already_learned: true`.
 
 ---
 
@@ -190,11 +191,19 @@ RoBERTa says "Road, pavement, divider, pits..." with 65% confidence. SGD says "D
 ## Important Points
 
 1. **RoBERTa is never retrained** in this system. It stays fixed. Only the **SGD classifier** is updated when you submit feedback.
-2. **One number decides:** the **combined confidence**. If it is above 80%, the outcome is **Accept**; if it is 80% or below, the outcome is **Human feedback**.
-3. **Learning is from human feedback.** Every time a human selects the correct category for a low-confidence complaint and that is sent to the feedback API, the system gets better on similar complaints in the future.
-4. **This system uses a Human-in-the-Loop (HITL) adaptive approach:**
+2. **Routing is decided by confidence.** If **RoBERTa confidence is ≥ 80%**, the outcome is **Accept** (RoBERTa’s prediction is used). Otherwise, the **combined** (ensemble) confidence is used: above 80% → **Accept**; 80% or below → **Human feedback**.
+3. **Same complaint not asked twice.** If the system already has feedback for the exact same complaint text, it returns `already_learned: true` and the previously corrected category; it does **not** show the feedback form again.
+4. **Learning is from human feedback.** Every time a human selects the correct category for a low-confidence complaint and that is sent to the feedback API, the system stores it (e.g. in `feedback.db`) and updates the SGD model; it gets better on similar complaints in the future.
+5. **This system uses a Human-in-the-Loop (HITL) adaptive approach:**
    - **Correction and validation:** When the system is unsure (low confidence), a human reviews the complaint and provides the **correct category**. That correction is used to update the adaptive (SGD) model immediately.
    - **Hybrid intelligence:** The machine (RoBERTa + SGD) does the heavy lifting and handles clear cases automatically; humans step in for **edge cases** (ambiguous or rare complaints) where contextual judgment is needed.
    - The system combines the **data-processing power** of the two models with **human judgment** when the models are not confident, and it **adapts** from those human corrections over time.
 
 This is how the adaptive learning system works with the RoBERTa model in simple terms.
+
+---
+
+## Related
+
+- **Bulk retraining and accuracy:** The **Testing** folder contains a feedback simulator and scripts to run automated feedback over a CSV, apply category mapping, and train on weak categories. See the project root **readme.md** and **Testing/README.md** for current accuracy (~90.6%) and retraining steps.
+- **API details:** See **docs/API_DOCUMENTATION.md** for full request/response fields (including `complaint_hash`, `needs_feedback`, `already_learned`, `previous_corrected_category`).

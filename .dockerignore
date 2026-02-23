@@ -1,63 +1,96 @@
-# Git
+# Git (not needed in image)
 .git
 .gitignore
 
 # Python
 __pycache__/
 *.py[cod]
+*.pyo
+*.pyd
+*$py.class
 *.so
 .Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
 *.egg-info/
+.installed.cfg
+*.egg
 
-# Virtual Environment
+# Virtual environment
 venv/
 env/
 ENV/
 .venv
+
+# CMS_RoBerta – model (large files; mount or copy at runtime)
+CMS_RoBerta/model/model.safetensors
+CMS_RoBerta/model/adaptive_classifier.pkl
+CMS_RoBerta/model/adaptive_classifier_backup.pkl
+CMS_RoBerta/model/feedback.db
+
+# Testing – generated reports, plots, and data
+Testing/reports/
+Testing/plots/
+Testing/category_mapping.csv
+Testing/training_samples_sgd_7800.csv
+Testing/clean_samples.csv
+Testing/report3.csv
+Testing/synthetic_pmc_data.csv
+Testing/sgd_learning_metrics.md
+
+# Documentation (optional: exclude from image; *.md excluded below)
+docs/
+*.md
+!CMS_RoBerta/README.md
+!CMS_RoBerta/model/README.md
+docs/Testingques.txt
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
 
 # IDE
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# Documentation
-docs/
-*.md
-!CMS_RoBerta/README.md
-!CMS_RoBerta/model/README.md
-
-# Logs
-*.log
-logs/
-
-# Environment files
-.env
-.env.local
-
-# Temporary files
-*.tmp
-*.bak
-
-# OS files
+# OS
 .DS_Store
 Thumbs.db
 
-# Test files
-test/
-tests/
-*.test.py
+# Temporary
+*.tmp
+*.bak
+*.cache
+
+# Testing / coverage
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
 
 # Jupyter
 .ipynb_checkpoints/
 *.ipynb
-
-# Model – exclude large model files (mount at runtime or copy separately)
-CMS_RoBerta/model/model.safetensors
-CMS_RoBerta/model/adaptive_classifier.pkl
-
-# Testing – generated/source data and reports
-Testing/clean_samples.csv
-Testing/report3.csv
-Testing/synthetic_pmc_data.csv
-Testing/sgd_learning_metrics.md
