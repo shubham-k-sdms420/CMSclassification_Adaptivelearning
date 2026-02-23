@@ -13,3 +13,11 @@ requests>=2.31.0
 # Adaptive Classifier (SGDClassifier + TF-IDF)
 numpy>=1.24.0
 scikit-learn>=1.3.0
+
+# Retrain script (retrain_sgd_with_synthetic.py)
+pandas>=2.0.0
+joblib>=1.3.0
+
+# Feedback simulator (Testing/feedback_simulator.py)
+matplotlib>=3.7.0
+tqdm>=4.65.0

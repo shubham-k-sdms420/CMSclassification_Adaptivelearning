@@ -28,15 +28,13 @@ env/
 ENV/
 .venv
 
-# CMS_RoBerta – model (large files only)
+# CMS_RoBerta – model (large files; download separately)
 CMS_RoBerta/model/model.safetensors
-CMS_RoBerta/model/adaptive_classifier.pkl
+CMS_RoBerta/model/adaptive_classifier_backup.pkl
 
-# Testing – generated/source data and reports
-Testing/clean_samples.csv
-Testing/report3.csv
-Testing/synthetic_pmc_data.csv
-Testing/sgd_learning_metrics.md
+# Testing – generated reports, plots, and data
+Testing/category_mapping.csv
+Testing/training_samples_sgd_7800.csv
 
 # Environment
 .env

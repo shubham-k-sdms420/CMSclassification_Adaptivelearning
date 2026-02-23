@@ -254,12 +254,15 @@
           })
         });
         let html = '<span class="label">' + escapeHtml(r.label) + '</span> <span class="meta">(id: ' + r.label_id + ')</span>';
+        if (r.already_learned && r.previous_corrected_category) {
+          html += '<div class="routing accept" style="margin-top:0.5rem;">Corrected category (learnt from your feedback): <strong>' + escapeHtml(r.previous_corrected_category) + '</strong></div>';
+        }
         if (r.confidence != null) {
           html += '<div class="meta">Final confidence: ' + (r.confidence * 100).toFixed(1) + '%</div>';
         }
         if (r.routing) {
-          const cls = r.routing === 'accept' ? 'accept' : 'human_feedback';
-          const msg = r.routing === 'accept' ? 'Accept (use this prediction)' : 'Human feedback (needs review)';
+          const cls = r.routing === 'accept' ? 'accept' : (r.already_learned ? 'accept' : 'human_feedback');
+          const msg = r.routing === 'accept' ? 'Accept (use this prediction)' : (r.already_learned ? 'Learnt from feedback (no action needed)' : 'Human feedback (needs review)');
           html += '<div class="routing ' + cls + '">Routing: ' + msg + '</div>';
         }
         if (r.label) {
@@ -335,7 +338,8 @@
         const fb = document.getElementById('feedbackBox');
         const fbDone = document.getElementById('feedbackDone');
         fbDone.style.display = 'none';
-        if (r.routing === 'human_feedback') {
+        // Only show feedback form when the API says we need feedback (same complaint not yet corrected)
+        if (r.needs_feedback === true) {
           fb.style.display = 'block';
           const sel = document.getElementById('feedbackLabel');
           if (sel.length <= 1 && window.allLabels && window.allLabels.length) {

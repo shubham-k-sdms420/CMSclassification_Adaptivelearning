@@ -17,6 +17,15 @@ from pydantic import BaseModel, Field
 from transformers import AutoModelForSequenceClassification, AutoTokenizer
 
 from .ensemble import AdaptiveEnsemble
+from .feedback_store import (
+    add_feedback,
+    add_feedback_batch,
+    get_category_feedback_counts,
+    get_complaint_hash,
+    get_feedback_category,
+    has_feedback,
+    init_db as init_feedback_db,
+)
 
 # Path to the trained model (saved by train_indicbert.py: trainer.save_model + tokenizer + label2id.json)
 MODEL_DIR = os.environ.get("MODEL_DIR", str(Path(__file__).resolve().parent.parent / "model"))
@@ -100,6 +109,7 @@ def load_model():
         adaptive_weight=adaptive_weight,
     )
     print(f"Ensemble ready (transformer={transformer_weight}, adaptive={adaptive_weight})")
+    init_feedback_db()
 
 
 class ClassifyRequest(BaseModel):
@@ -113,6 +123,11 @@ class ClassifyResponse(BaseModel):
     confidence: Optional[float] = Field(None, description="Ensemble confidence (0-1)")
     routing: Optional[str] = Field(None, description="accept (good confidence >80%) or human_feedback (low confidence)")
     probabilities: Optional[dict] = Field(None, description="Label -> probability (if requested)")
+    # Feedback routing: don't ask twice for same complaint
+    complaint_hash: Optional[str] = Field(None, description="Hash of complaint text; use when submitting feedback")
+    needs_feedback: Optional[bool] = Field(None, description="True if UI should show feedback form (routing=human_feedback and not already learned)")
+    already_learned: Optional[bool] = Field(None, description="True if we already have feedback for this exact complaint")
+    previous_corrected_category: Optional[str] = Field(None, description="When already_learned=true, the category you previously submitted")
     # Ensemble metrics (for UI)
     transformer_label: Optional[str] = Field(None, description="RoBERTa predicted category")
     transformer_confidence: Optional[float] = Field(None, description="RoBERTa confidence (0-1)")
@@ -136,8 +151,12 @@ class FeedbackRequest(BaseModel):
     correct_category: str = Field(..., description="Category selected by human")
 
 
+class FeedbackItem(BaseModel):
+    complaint_text: str = Field(..., description="The complaint text")
+    correct_category: str = Field(..., description="The correct category label")
+
 class BatchFeedbackRequest(BaseModel):
-    feedbacks: List[dict] = Field(..., description="List of feedback objects with complaint_text and correct_category")
+    feedbacks: List[FeedbackItem] = Field(..., description="List of feedback objects with complaint_text and correct_category")
 
 
 @app.get("/health", response_model=HealthResponse)
@@ -170,13 +189,39 @@ def classify(req: ClassifyRequest):
     text = (req.text or "").strip()
     if not text:
         raise HTTPException(status_code=400, detail="text must be non-empty")
-    result = ensemble.predict([text], return_probabilities=req.return_probabilities)
+    complaint_hash = get_complaint_hash(text)
+    already_learned = has_feedback(complaint_hash)
+    previous_corrected_category = get_feedback_category(complaint_hash) if already_learned else None
+    category_counts = get_category_feedback_counts()
+    try:
+        result = ensemble.predict(
+            [text],
+            return_probabilities=req.return_probabilities,
+            category_feedback_counts=category_counts,
+        )
+    except Exception as e:
+        import traceback
+        print(f"Classify error: {e}\n{traceback.format_exc()}")
+        raise HTTPException(status_code=500, detail=f"Classification failed: {str(e)}")
     pred = result["predictions"][0]
+    routing = pred["routing"]
+    needs_feedback = routing == "human_feedback" and not already_learned
+    # When we already have feedback, show the human-corrected category as the result
+    if already_learned and previous_corrected_category:
+        label = previous_corrected_category
+        label_id = ensemble.label2id.get(previous_corrected_category, pred["label_id"])
+    else:
+        label = pred["label"]
+        label_id = pred["label_id"]
     out = ClassifyResponse(
-        label=pred["label"],
-        label_id=pred["label_id"],
+        label=label,
+        label_id=label_id,
         confidence=pred["confidence"],
-        routing=pred["routing"],
+        routing=routing,
+        complaint_hash=complaint_hash,
+        needs_feedback=needs_feedback,
+        already_learned=already_learned,
+        previous_corrected_category=previous_corrected_category,
         transformer_label=pred.get("transformer_label"),
         transformer_confidence=pred.get("transformer_confidence"),
         adaptive_label=pred.get("adaptive_label"),
@@ -190,20 +235,35 @@ def classify(req: ClassifyRequest):
 
 @app.post("/classify/batch")
 def classify_batch(req: BatchClassifyRequest):
-    """Classify multiple complaint texts. Returns predictions with confidence and routing."""
+    """Classify multiple complaint texts. Returns predictions with confidence, routing, and feedback flags."""
     if ensemble is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
     texts = [t.strip() or "" for t in (req.texts or []) if t.strip()]
     if not texts:
         return {"predictions": []}
-    result = ensemble.predict(texts, return_probabilities=req.return_probabilities)
+    category_counts = get_category_feedback_counts()
+    result = ensemble.predict(
+        texts,
+        return_probabilities=req.return_probabilities,
+        category_feedback_counts=category_counts,
+    )
     predictions = []
-    for pred in result["predictions"]:
+    for i, pred in enumerate(result["predictions"]):
+        text = texts[i] if i < len(texts) else ""
+        complaint_hash = get_complaint_hash(text) if text else ""
+        already_learned = has_feedback(complaint_hash) if complaint_hash else False
+        previous_corrected_category = get_feedback_category(complaint_hash) if already_learned else None
+        routing = pred["routing"]
+        needs_feedback = routing == "human_feedback" and not already_learned
         entry = {
             "label": pred["label"],
             "label_id": pred["label_id"],
             "confidence": pred["confidence"],
-            "routing": pred["routing"],
+            "routing": routing,
+            "complaint_hash": complaint_hash,
+            "needs_feedback": needs_feedback,
+            "already_learned": already_learned,
+            "previous_corrected_category": previous_corrected_category,
         }
         if req.return_probabilities and "probabilities" in pred:
             entry["probabilities"] = pred["probabilities"]
@@ -229,8 +289,8 @@ def feedback(req: FeedbackRequest):
                 detail=f"correct_category must be one of the 78 labels (e.g. use GET /labels). Got: {category[:50]}...",
             )
         ensemble.learn([text], [category])
+        add_feedback(complaint_hash=get_complaint_hash(text), complaint_text=text, corrected_category=category)
         adaptive_path = Path(MODEL_DIR) / "adaptive_classifier.pkl"
-        # Ensure directory exists
         adaptive_path.parent.mkdir(parents=True, exist_ok=True)
         ensemble.save_adaptive_model(adaptive_path)
         return {"status": "learned", "message": "Adaptive classifier updated with feedback"}
@@ -255,8 +315,8 @@ def feedback_batch(req: BatchFeedbackRequest):
         texts = []
         categories = []
         for i, fb in enumerate(req.feedbacks):
-            text = (fb.get("complaint_text") or "").strip()
-            category = (fb.get("correct_category") or "").strip()
+            text = (fb.complaint_text or "").strip()
+            category = (fb.correct_category or "").strip()
             if not text:
                 raise HTTPException(status_code=400, detail=f"Feedback {i}: complaint_text must be non-empty")
             if not category:
@@ -269,8 +329,10 @@ def feedback_batch(req: BatchFeedbackRequest):
             texts.append(text)
             categories.append(category)
         
-        # Batch learn - more efficient for SGDClassifier
         ensemble.learn(texts, categories)
+        add_feedback_batch([
+            (get_complaint_hash(t), t, c) for t, c in zip(texts, categories)
+        ])
         adaptive_path = Path(MODEL_DIR) / "adaptive_classifier.pkl"
         adaptive_path.parent.mkdir(parents=True, exist_ok=True)
         ensemble.save_adaptive_model(adaptive_path)
