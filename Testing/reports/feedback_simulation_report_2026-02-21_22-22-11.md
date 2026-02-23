@@ -11,80 +11,81 @@
 - **Initial Accuracy:** 21.00%
 - **Final Accuracy:** 100.00%
 - **Improvement:** +79.00%
-- **API Endpoint:** http://localhost:5015
+- **API Endpoint:** http://localhost:5016
 
 ---
 
 ## Learning Progress
 
 | Feedbacks Given | Accuracy | Improvement |
-|----------------|----------|-------------|
-| 0 | 21.00% | Baseline |
-| 100 | 24.50% | +3.50% |
-| 200 | 27.50% | +3.00% |
-| 300 | 33.00% | +5.50% |
-| 400 | 37.50% | +4.50% |
-| 500 | 40.00% | +2.50% |
-| 600 | 43.00% | +3.00% |
-| 700 | 47.50% | +4.50% |
-| 800 | 51.00% | +3.50% |
-| 900 | 55.00% | +4.00% |
-| 1,000 | 59.50% | +4.50% |
-| 1,100 | 62.50% | +3.00% |
-| 1,200 | 68.00% | +5.50% |
-| 1,300 | 71.50% | +3.50% |
-| 1,400 | 74.50% | +3.00% |
-| 1,500 | 77.00% | +2.50% |
-| 1,600 | 81.00% | +4.00% |
-| 1,700 | 88.50% | +7.50% |
-| 1,800 | 90.50% | +2.00% |
-| 1,900 | 95.50% | +5.00% |
-| 2,000 | 100.00% | +4.50% |
-| 2,000 | 100.00% | +0.00% |
+| --------------- | -------- | ----------- |
+| 0               | 21.00%   | Baseline    |
+| 100             | 24.50%   | +3.50%      |
+| 200             | 27.50%   | +3.00%      |
+| 300             | 33.00%   | +5.50%      |
+| 400             | 37.50%   | +4.50%      |
+| 500             | 40.00%   | +2.50%      |
+| 600             | 43.00%   | +3.00%      |
+| 700             | 47.50%   | +4.50%      |
+| 800             | 51.00%   | +3.50%      |
+| 900             | 55.00%   | +4.00%      |
+| 1,000           | 59.50%   | +4.50%      |
+| 1,100           | 62.50%   | +3.00%      |
+| 1,200           | 68.00%   | +5.50%      |
+| 1,300           | 71.50%   | +3.50%      |
+| 1,400           | 74.50%   | +3.00%      |
+| 1,500           | 77.00%   | +2.50%      |
+| 1,600           | 81.00%   | +4.00%      |
+| 1,700           | 88.50%   | +7.50%      |
+| 1,800           | 90.50%   | +2.00%      |
+| 1,900           | 95.50%   | +5.00%      |
+| 2,000           | 100.00%  | +4.50%      |
+| 2,000           | 100.00%  | +0.00%      |
 
 ## Category-wise Performance
 
 ### Bottom 20 Categories (Need Attention)
 
-| Category | Accuracy | Samples |
-|----------|----------|--------|
-| Garbage Depot Complaint | 0.0% | 400 |
-| Traffic-Planning | 0.0% | 100 |
-| Information Technology | 1.0% | 100 |
-| Unauthorized banners / advertisements /  | 1.0% | 100 |
-| General Complaints | 6.3% | 300 |
-| Cultural Department | 7.0% | 100 |
-| License (Parwana) | 30.0% | 400 |
-| City Development Plan | 31.0% | 100 |
-| Mandai | 46.0% | 100 |
-| Birth And Death | 59.0% | 100 |
-| Public Health Related | 73.0% | 100 |
-| Pune Smart City (PSCDCL) | 86.0% | 100 |
+| Category                                | Accuracy | Samples |
+| --------------------------------------- | -------- | ------- |
+| Garbage Depot Complaint                 | 0.0%     | 400     |
+| Traffic-Planning                        | 0.0%     | 100     |
+| Information Technology                  | 1.0%     | 100     |
+| Unauthorized banners / advertisements / | 1.0%     | 100     |
+| General Complaints                      | 6.3%     | 300     |
+| Cultural Department                     | 7.0%     | 100     |
+| License (Parwana)                       | 30.0%    | 400     |
+| City Development Plan                   | 31.0%    | 100     |
+| Mandai                                  | 46.0%    | 100     |
+| Birth And Death                         | 59.0%    | 100     |
+| Public Health Related                   | 73.0%    | 100     |
+| Pune Smart City (PSCDCL)                | 86.0%    | 100     |
 
 ### Top 20 Categories (Strong Performance)
 
-| Category | Accuracy | Samples |
-|----------|----------|--------|
-| Pune Smart City (PSCDCL) | 86.0% | 100 |
-| Public Health Related | 73.0% | 100 |
-| Birth And Death | 59.0% | 100 |
-| Mandai | 46.0% | 100 |
-| City Development Plan | 31.0% | 100 |
-| License (Parwana) | 30.0% | 400 |
-| Cultural Department | 7.0% | 100 |
-| General Complaints | 6.3% | 300 |
-| Unauthorized banners / advertisements /  | 1.0% | 100 |
-| Information Technology | 1.0% | 100 |
-| Traffic-Planning | 0.0% | 100 |
-| Garbage Depot Complaint | 0.0% | 400 |
+| Category                                | Accuracy | Samples |
+| --------------------------------------- | -------- | ------- |
+| Pune Smart City (PSCDCL)                | 86.0%    | 100     |
+| Public Health Related                   | 73.0%    | 100     |
+| Birth And Death                         | 59.0%    | 100     |
+| Mandai                                  | 46.0%    | 100     |
+| City Development Plan                   | 31.0%    | 100     |
+| License (Parwana)                       | 30.0%    | 400     |
+| Cultural Department                     | 7.0%     | 100     |
+| General Complaints                      | 6.3%     | 300     |
+| Unauthorized banners / advertisements / | 1.0%     | 100     |
+| Information Technology                  | 1.0%     | 100     |
+| Traffic-Planning                        | 0.0%     | 100     |
+| Garbage Depot Complaint                 | 0.0%     | 400     |
 
 ## Confidence Analysis
 
 - **Correct Predictions:**
+
   - Average Confidence: 74.06%
   - Median Confidence: 96.06%
-
 - **Wrong Predictions:**
+
   - Average Confidence: 58.17%
   - Median Confidence: 41.60%
 

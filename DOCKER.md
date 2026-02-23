@@ -32,7 +32,7 @@ docker build -t cms-roberta-api:latest .
 # Run the container
 docker run -d \
   --name cms-complaint-classifier \
-  -p 5015:5015 \
+  -p 5016:5016 \
   -v $(pwd)/CMS_RoBerta/model:/app/CMS_RoBerta/model \
   -e MODEL_DIR=/app/CMS_RoBerta/model \
   cms-roberta-api:latest
@@ -49,19 +49,19 @@ docker rm cms-complaint-classifier
 
 Once the container is running:
 
-- **API**: http://localhost:5015
-- **UI**: http://localhost:5015/ui
-- **Health Check**: http://localhost:5015/health
-- **API Docs**: http://localhost:5015/docs
+- **API**: http://localhost:5016
+- **UI**: http://localhost:5016/ui
+- **Health Check**: http://localhost:5016/health
+- **API Docs**: http://localhost:5016/docs
 
 ## Test the API
 
 ```bash
 # Health check
-curl http://localhost:5015/health
+curl http://localhost:5016/health
 
 # Classify a complaint
-curl -X POST http://localhost:5015/classify \
+curl -X POST http://localhost:5016/classify \
   -H "Content-Type: application/json" \
   -d '{"text": "Street light not working near my house"}'
 ```

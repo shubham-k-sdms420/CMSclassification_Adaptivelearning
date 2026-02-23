@@ -44,7 +44,7 @@ sleep 10
 MAX_ATTEMPTS=12
 ATTEMPT=0
 while [ $ATTEMPT -lt $MAX_ATTEMPTS ]; do
-    if curl -s http://localhost:5015/health > /dev/null 2>&1; then
+    if curl -s http://localhost:5016/health > /dev/null 2>&1; then
         echo "✅ API is ready!"
         break
     fi
@@ -64,7 +64,7 @@ echo "Testing endpoints..."
 
 # Test health endpoint
 echo -n "Testing /health... "
-if curl -s http://localhost:5015/health | grep -q "ok"; then
+if curl -s http://localhost:5016/health | grep -q "ok"; then
     echo "✅"
 else
     echo "❌"
@@ -72,7 +72,7 @@ fi
 
 # Test classify endpoint
 echo -n "Testing /classify... "
-RESPONSE=$(curl -s -X POST http://localhost:5015/classify \
+RESPONSE=$(curl -s -X POST http://localhost:5016/classify \
   -H "Content-Type: application/json" \
   -d '{"text": "Street light not working"}')
 if echo "$RESPONSE" | grep -q "label"; then
@@ -85,7 +85,7 @@ fi
 
 # Test UI endpoint
 echo -n "Testing /ui... "
-if curl -s http://localhost:5015/ui | grep -q "CMS Complaint Classification"; then
+if curl -s http://localhost:5016/ui | grep -q "CMS Complaint Classification"; then
     echo "✅"
 else
     echo "❌"
@@ -96,7 +96,7 @@ echo "=========================================="
 echo "✅ All tests passed!"
 echo "=========================================="
 echo ""
-echo "Access the API at: http://localhost:5015"
-echo "Access the UI at: http://localhost:5015/ui"
+echo "Access the API at: http://localhost:5016"
+echo "Access the UI at: http://localhost:5016/ui"
 echo ""
 echo "To stop the container: $COMPOSE_CMD down"
