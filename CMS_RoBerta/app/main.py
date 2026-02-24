@@ -53,6 +53,16 @@ def load_model():
             f"Model directory not found: {model_path}. "
             "Set MODEL_DIR or place the trained model in ./model (see README)."
         )
+    # Fail fast with a clear message if weight file is missing (common in Docker deployments)
+    weights_file = model_path / "model.safetensors"
+    if not weights_file.exists():
+        weights_file = model_path / "pytorch_model.bin"
+    if not weights_file.exists():
+        raise FileNotFoundError(
+            f"No model weights found in {model_path}. "
+            "Add model.safetensors or pytorch_model.bin (e.g. from the project Google Drive). "
+            "For Docker: ensure the host directory mounted to /app/CMS_RoBerta/model contains these files before starting the container."
+        )
     # Support both label2id.json (flat) and label_mappings.json (nested)
     label2id_path = model_path / "label2id.json"
     label_mappings_path = model_path / "label_mappings.json"
