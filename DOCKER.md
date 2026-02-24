@@ -71,3 +71,23 @@ curl -X POST http://localhost:5016/classify \
 - The model directory is mounted as a volume, so model files and the adaptive classifier (`adaptive_classifier.pkl`) persist between container restarts.
 - First startup may take 30-60 seconds to load the transformer model.
 - The container includes a health check that verifies the API is responding.
+
+## Deployment: Model files required
+
+**The Docker image does not include the transformer model weights.** The error  
+`OSError: Error no file named model.safetensors, or pytorch_model.bin, found in directory /app/CMS_RoBerta/model`  
+means the directory mounted at `/app/CMS_RoBerta/model` is missing the weight file.
+
+**Before starting the container (or before the first deploy):**
+
+1. On the **host** (or in the volume you mount), ensure **`CMS_RoBerta/model/`** contains:
+   - **`model.safetensors`** (or **`pytorch_model.bin`**) — transformer weights (~2 GB), from the project [Google Drive folder](https://drive.google.com/drive/folders/1qA-Sg2pVO9TXpux_LRNsJ-gVYbksNnGS?usp=sharing)
+   - **`config.json`**, **`tokenizer_config.json`**, **`tokenizer.json`**, **`label2id.json`** (and any other files from that folder)
+   - Optionally **`adaptive_classifier.pkl`** from [this Drive link](https://drive.google.com/file/d/10bwLoCl8lQgqHnxbkzuLtXJe3rdJ74L0/view?usp=sharing) for the adaptive classifier
+
+2. **Docker Compose:** The compose file mounts `./CMS_RoBerta/model` from the **current working directory**. So on the deployment server, either:
+   - Clone the repo, then download/copy the model files into `CMS_RoBerta/model/`, then run `docker compose up --build`, or
+   - Mount a different host path that already contains the model files, e.g.  
+     `- /opt/cms-model:/app/CMS_RoBerta/model`
+
+3. **Kubernetes / other orchestrators:** Use a volume (e.g. PVC, NFS, or init container that downloads the model) that contains the above files and mount it at `/app/CMS_RoBerta/model`, and set `MODEL_DIR=/app/CMS_RoBerta/model`.

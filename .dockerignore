@@ -32,11 +32,8 @@ env/
 ENV/
 .venv
 
-# CMS_RoBerta – model (large files; mount or copy at runtime)
+# CMS_RoBerta – large model weights (mount at runtime or copy separately)
 CMS_RoBerta/model/model.safetensors
-CMS_RoBerta/model/adaptive_classifier.pkl
-CMS_RoBerta/model/adaptive_classifier_backup.pkl
-CMS_RoBerta/model/feedback.db
 
 # Testing – generated reports, plots, and data
 Testing/reports/
