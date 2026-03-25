@@ -155,9 +155,21 @@ class AdaptiveEnsemble:
             },
         }
 
-    def learn(self, texts: List[str], labels: List[str]) -> None:
-        """Update adaptive classifier from human feedback."""
+    def learn(
+        self,
+        texts: List[str],
+        labels: List[str],
+        extra_classes: Optional[List[str]] = None,
+    ) -> None:
+        """Update adaptive classifier from human feedback.
+
+        extra_classes: additional class names (e.g. Swachhata categories) to
+        include so the SGD classifier is aware of the full label space.
+        """
         classes = list(self.id2label.values())
+        if extra_classes:
+            existing = set(classes)
+            classes = classes + [c for c in extra_classes if c not in existing]
         self.adaptive_classifier.partial_fit(texts, labels, classes=classes)
 
     def save_adaptive_model(self, path: Path) -> None:
