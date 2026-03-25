@@ -9,6 +9,8 @@ services:
     volumes:
       # Mount model directory so model files persist and can be updated
       - ./CMS_RoBerta/model:/app/CMS_RoBerta/model
+    env_file:
+      - .env
     environment:
       - MODEL_DIR=/app/CMS_RoBerta/model
       - PYTHONUNBUFFERED=1
