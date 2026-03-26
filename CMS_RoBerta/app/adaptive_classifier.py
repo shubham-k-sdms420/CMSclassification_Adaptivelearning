@@ -8,6 +8,18 @@ import pickle
 from pathlib import Path
 from typing import List, Optional
 
+
+class _NumpyCompatUnpickler(pickle.Unpickler):
+    """
+    Remaps `numpy._core` (NumPy 2.x internal module path) to `numpy.core`
+    so pkl files saved with NumPy 2.x can be loaded under NumPy 1.x.
+    """
+
+    def find_class(self, module: str, name: str):
+        if module.startswith("numpy._core"):
+            module = module.replace("numpy._core", "numpy.core", 1)
+        return super().find_class(module, name)
+
 import numpy as np
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.linear_model import SGDClassifier
@@ -151,7 +163,7 @@ class AdaptiveClassifier:
         """Load classifier and vectorizer from disk."""
         path = Path(path)
         with open(path, "rb") as f:
-            data = pickle.load(f)
+            data = _NumpyCompatUnpickler(f).load()
         self.classifier = data["classifier"]
         self.vectorizer = data["vectorizer"]
         self.is_trained = data["is_trained"]

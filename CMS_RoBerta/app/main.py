@@ -164,6 +164,9 @@ class ClassifyResponse(BaseModel):
     agreement: Optional[bool] = Field(None, description="True if both models agreed (null for Swachhata)")
     # Swachhata routing
     isSwachhata: bool = Field(False, description="True when complaint was routed to Gemini and classified into one of the 20 Swachhata categories")
+    # Source of Swachhata label generation. For non-Swachhata predictions, this will be false.
+    # For already_learned=true (human override), this will also be false.
+    isLLM: bool = Field(False, description="True if Gemini/LLM generated the Swachhata label; false if deterministic fallback or human override")
 
 
 class BatchClassifyRequest(BaseModel):
@@ -240,6 +243,9 @@ def classify(req: ClassifyRequest):
                 SWACHHATA_NAME_TO_ID.get(previous_corrected_category)
                 or ensemble.label2id.get(previous_corrected_category, gem["label_id"])
             )
+            is_llm = False
+        else:
+            is_llm = bool(gem.get("isLLM", False))
 
         return ClassifyResponse(
             label=label,
@@ -256,6 +262,7 @@ def classify(req: ClassifyRequest):
             adaptive_confidence=None,
             agreement=None,
             isSwachhata=True,
+            isLLM=is_llm,
         )
 
     # --- Default routing: RoBERTa ensemble ---
@@ -297,6 +304,7 @@ def classify(req: ClassifyRequest):
         adaptive_confidence=pred.get("adaptive_confidence"),
         agreement=pred.get("agreement"),
         isSwachhata=False,
+        isLLM=False,
     )
     if req.return_probabilities and "probabilities" in pred:
         out.probabilities = pred["probabilities"]
@@ -364,6 +372,9 @@ def classify_batch(req: BatchClassifyRequest):
                     SWACHHATA_NAME_TO_ID.get(previous_corrected_category)
                     or ensemble.label2id.get(previous_corrected_category, gem["label_id"])
                 )
+                is_llm = False
+            else:
+                is_llm = bool(gem.get("isLLM", False))
             entry = {
                 "label": label,
                 "label_id": label_id,
@@ -374,6 +385,7 @@ def classify_batch(req: BatchClassifyRequest):
                 "already_learned": already_learned,
                 "previous_corrected_category": previous_corrected_category,
                 "isSwachhata": True,
+                "isLLM": is_llm,
             }
         else:
             pred = roberta_preds[i]
@@ -394,6 +406,7 @@ def classify_batch(req: BatchClassifyRequest):
                 "already_learned": already_learned,
                 "previous_corrected_category": previous_corrected_category,
                 "isSwachhata": False,
+                "isLLM": False,
             }
             if req.return_probabilities and "probabilities" in pred:
                 entry["probabilities"] = pred["probabilities"]
